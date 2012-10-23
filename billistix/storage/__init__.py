@@ -13,27 +13,43 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+from stevedore import driver
+
 from billistix.openstack.common import cfg
+from billistix.openstack.common import log
+
+from urlparse import urlparse
+
+LOG = log.getLogger(__name__)
+
+STORAGE_ENGINE_NAMESPACE = 'billistix.storage'
 
 cfg.CONF.register_opts([
-    cfg.StrOpt('database-driver', default='sqlalchemy',
-               help='The database driver to use'),
+    cfg.StrOpt('database_connection',
+                default='sqlite:///billistix.db',
+                help='The database driver to use'),
 ])
 
 
-class BaseDatabase(object):
-    def get_rates(self, context):
-        raise NotImplementedError()
-
-    def add_rate(self, context, name, value):
-        raise NotImplementedError()
+def register_opts(conf):
+    p = get_engine(conf)
+    p.register_opts(conf)
 
 
-def get_driver(*args, **kwargs):
-    # TODO: Switch to the config var + entry point loading
-    from billistix.database.sqlalchemy import Sqlalchemy
+def get_engine(conf):
+    engine_name = urlparse(conf.database_connection).scheme
+    LOG.debug('looking for %r driver in %r',
+            engine_name, STORAGE_ENGINE_NAMESPACE)
+    mgr = driver.DriverManager(STORAGE_ENGINE_NAMESPACE,
+                                engine_name,
+                                invoke_on_load=True)
+    return mgr.driver
 
-    return Sqlalchemy(*args, **kwargs)
+
+def get_connection(conf):
+    engine = get_get_engine(conf)
+    engine.register_opts(conf)
+    return engine.get_connection(conf)
 
 
 def reinitialize(*args, **kwargs):

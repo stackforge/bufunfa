@@ -15,9 +15,7 @@
 # under the License.
 from sqlalchemy.types import TypeDecorator, CHAR, VARCHAR
 from sqlalchemy.dialects.postgresql import UUID as pgUUID
-from sqlalchemy.dialects.postgresql import INET as pgINET
 import uuid
-import ipaddr
 
 
 class UUID(TypeDecorator):
@@ -53,25 +51,3 @@ class UUID(TypeDecorator):
             return value
         else:
             return uuid.UUID(value)
-
-
-class Inet(TypeDecorator):
-    impl = VARCHAR
-
-    def load_dialect_impl(self, dialect):
-        if dialect.name == "postgresql":
-            return pgINET()
-        else:
-            return VARCHAR(39)  # IPv6 can be up to 39 chars
-
-    def process_bind_param(self, value, dialect):
-        if value is None:
-            return value
-        else:
-            return str(value)
-
-    def process_result_value(self, value, dialect):
-        if value is None:
-            return value
-        else:
-            return ipaddr.IPAddress(value)

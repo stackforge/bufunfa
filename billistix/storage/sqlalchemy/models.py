@@ -13,19 +13,39 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+import copy
 from uuid import uuid4
+from urlparse import urlparse
+
 from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Enum
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import relationship, backref, object_mapper
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
-from billistix import exceptions
-from billistix.openstack.common import timeutils
-from billistix.openstack.common import log as logging
-from billistix.database.sqlalchemy.session import get_session
-from billistix.database.sqlalchemy.types import UUID, Inet
 
-LOG = logging.getLogger(__name__)
+from billistix import exceptions
+import billistix.openstack.common.cfg as cfg
+from billistix.openstack.common import log
+from billistix.openstack.common import timeutils
+from billistix.storage.sqlalchemy.session import get_session
+from billistix.storage.sqlalchemy.types import UUID
+
+LOG = log.getLogger(__name__)
+
+sql_opts = [
+    cfg.IntOpt('mysql_engine',
+                default='InnoDB',
+                help='MySQL engine')
+]
+
+cfg.CONF.register_opts(sql_opts)
+
+
+def table_args():
+    engine_name = urlparse(cfg.CONF.database_connection).scheme
+    if engine_name == 'mysql':
+        return {'mysql_engine': cfg.CONF.mysql_engine}
+    return None
 
 
 class Base(object):
@@ -35,11 +55,9 @@ class Base(object):
 
     created_at = Column(DateTime, default=timeutils.utcnow)
     updated_at = Column(DateTime, onupdate=timeutils.utcnow)
-    version = Column(Integer, default=1, nullable=False)
 
-    __mapper_args__ = {
-        'version_id_col': version
-    }
+    __table_args__ = table_args()
+    __table_initialized__ = False
 
     def save(self, session=None):
         """ Save this object """
