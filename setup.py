@@ -15,6 +15,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 from setuptools import setup, find_packages
+import textwrap
+
 from billistix.openstack.common import setup as common_setup
 
 install_requires = common_setup.parse_requirements(['tools/pip-requires'])
@@ -26,9 +28,11 @@ dependency_links = common_setup.parse_dependency_links([
     'tools/setup-requires'
 ])
 
+version = '0.2'
+
 setup(
     name='billistix',
-    version='0.0',
+    version=version,
     description='Billing as a Service',
     author='Endre Karlson',
     author_email='endre.karlson@bouvet.no',
@@ -43,6 +47,15 @@ setup(
     dependency_links=dependency_links,
     scripts=[
         'bin/billistix-server',
+        'bin/billistix-sync',
+        'bin/billistix-meter-sync'
     ],
     cmdclass=common_setup.get_cmdclass(),
+    entry_points=textwrap.dedent("""
+        [billistix.storage]
+        mongodb = billistix.storage.impl_mongodb:MongoDBStorage
+        mysql = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
+        postgresql = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
+        sqlite = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
+        """)
 )
