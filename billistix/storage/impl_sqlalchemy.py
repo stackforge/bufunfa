@@ -41,7 +41,7 @@ class Connection(base.Connection):
         Base.metadata.create_all(self.session.bind)
 
     def get_rates(self, context, session=None):
-        q = self.session.query(models.Rate)
+        q = self.session.query(Rate)
         return [row2dict(row) for row in q.all()]
 
 
