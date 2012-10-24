@@ -46,7 +46,7 @@ setup(
     extras_require={'test': tests_require},
     dependency_links=dependency_links,
     scripts=[
-        'bin/billistix-server',
+        'bin/billistix-api',
         'bin/billistix-sync',
         'bin/billistix-meter-sync'
     ],
