@@ -246,7 +246,7 @@ class JSONFormatter(logging.Formatter):
 
 class PublishErrorsHandler(logging.Handler):
     def emit(self, record):
-        if ('billistix.openstack.common.notifier.log_notifier' in
+        if ('openstack.common.notifier.log_notifier' in
             CONF.notification_driver):
             return
         notifier.api.notify(None, 'error.publisher',
