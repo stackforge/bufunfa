@@ -16,7 +16,7 @@
 #    under the License.
 
 """
-gettext for billistix.openstack.common modules.
+gettext for billistix.openstack-common modules.
 
 Usual usage in an billistix.openstack.common module:
 
