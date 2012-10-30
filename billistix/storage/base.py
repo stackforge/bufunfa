@@ -33,7 +33,25 @@ class Connection(object):
         """
 
     @abc.abstractmethod
+    def add_rate(self, context, values):
+        """
+        Add a new rate
+        """
+
+    @abc.abstractmethod
     def get_rates(self, context):
         """
         Get all rates
+        """
+
+    @abc.abstractmethod
+    def update_rate(self, context, rate_id, values):
+        """
+        Update a rate
+        """
+
+    @abc.abstractmethod
+    def delete_rate(self, context, rate_id):
+        """
+        Delete a rate
         """

@@ -1,5 +1,6 @@
 import copy
 
+from billistix import exceptions
 from billistix.openstack.common import log
 from billistix.storage import base
 from billistix.storage.impl_sqlalchemy import models
@@ -43,21 +44,39 @@ class Connection(base.Connection):
         """ Semi-Private Method to reset the database schema """
         models.Base.metadata.drop_all(self.session.bind)
 
-    def create_rate(self, context, values, session=None):
+    def _get_id(self, context, model, id):
+        """
+        Helper to not write the same code x times
+        """
+        query = self.session.query(model)
+        obj = query.get(id)
+        if not obj:
+            raise exceptions.NotFound(id)
+        else:
+            return obj
+
+    def add_rate(self, context, values, session=None):
         rate = models.Rate()
         rate.update(values)
-        rate.save()
+        rate.save(self.session)
         return rate
 
     def get_rates(self, context, session=None):
         query = self.session.query(models.Rate)
         return [row2dict(row) for row in query.all()]
 
+    def update_rate(self, context, rate_id, values):
+        rate = self._get_id(context, model, rate_id)
+        rate.update(values)
+        try:
+            rate.save(self.session)
+        except exceptions.Duplicate:
+            raise
+        return dict(rate)
 
-def model_query(*args, **kw):
-    session = kw.get("session") or get_session()
-    query = session.query(*args)
-    return query
+    def delete_rate(self, context, rate_id):
+        rate = self._get_id(context, rate_id)
+        rate.delete(self.session)
 
 
 def row2dict(row):
