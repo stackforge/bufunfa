@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Copyright 2012 Managed I.T.
 #
 # Author: Kiall Mac Innes <kiall@managedit.ie>
@@ -14,22 +13,16 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-import sys
-import eventlet
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import service
-from billistix.api import service as api_service
+from billistix.openstack.common import wsgi
 
-eventlet.monkey_patch()
 
-config_files = cfg.find_config_files(project='billistix',
-                                    prog='billistix-api')
+class Middleware(wsgi.Middleware):
+    @classmethod
+    def factory(cls, global_config, **local_conf):
+        """ Used for paste app factories in paste.deploy config files """
 
-cfg.CONF(sys.argv[1:], project='billistix', prog='billistix-api',
-        default_config_files=config_files)
+        def _factory(app):
+            return cls(app, **local_conf)
 
-logging.setup('billistix')
+        return _factory
 
-launcher = service.launch(api_service.Service())
-launcher.wait()
