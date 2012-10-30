@@ -1,12 +1,9 @@
 import copy
-import datetime
 
-from billistix.openstack.common import cfg
 from billistix.openstack.common import log
 from billistix.storage import base
-from billistix.storage.sqlalchemy.models import Base, Rate
-from billistix.storage.sqlalchemy.session import get_session
-import billistix.storage.sqlalchemy.session as session
+from billistix.storage.impl_sqlalchemy import models
+from billistix.storage.impl_sqlalchemy.session import get_session
 
 LOG = log.getLogger(__name__)
 
@@ -29,25 +26,37 @@ class Connection(base.Connection):
     def __init__(self, conf):
         LOG.info('connecting to %s', conf.database_connection)
         self.session = self._get_connection(conf)
-        return
+        # NOTE: Need to fix this properly...
+        self.setup_schema()
 
     def _get_connection(self, conf):
         """
         Return a connection to the database.
         """
-        return session.get_session()
+        return get_session()
 
-    def register_models(self):
-        Base.metadata.create_all(self.session.bind)
+    def setup_schema(self):
+        """ Semi-Private Method to create the database schema """
+        models.Base.metadata.create_all(self.session.bind)
+
+    def teardown_schema(self):
+        """ Semi-Private Method to reset the database schema """
+        models.Base.metadata.drop_all(self.session.bind)
+
+    def create_rate(self, context, values, session=None):
+        rate = models.Rate()
+        rate.update(values)
+        rate.save()
+        return rate
 
     def get_rates(self, context, session=None):
-        q = self.session.query(Rate)
-        return [row2dict(row) for row in q.all()]
+        query = self.session.query(models.Rate)
+        return [row2dict(row) for row in query.all()]
 
 
 def model_query(*args, **kw):
-    session = kwargs.get("session") or get_session()
-    q = session.query(*args)
+    session = kw.get("session") or get_session()
+    query = session.query(*args)
     return query
 
 

@@ -27,15 +27,13 @@ from billistix import exceptions
 import billistix.openstack.common.cfg as cfg
 from billistix.openstack.common import log
 from billistix.openstack.common import timeutils
-from billistix.storage.sqlalchemy.session import get_session
-from billistix.storage.sqlalchemy.types import UUID
+from billistix.storage.impl_sqlalchemy.session import get_session
+from billistix.storage.impl_sqlalchemy.types import UUID
 
 LOG = log.getLogger(__name__)
 
 sql_opts = [
-    cfg.IntOpt('mysql_engine',
-                default='InnoDB',
-                help='MySQL engine')
+    cfg.IntOpt('mysql_engine', default='InnoDB', help='MySQL engine')
 ]
 
 cfg.CONF.register_opts(sql_opts)
@@ -59,11 +57,8 @@ class Base(object):
     __table_args__ = table_args()
     __table_initialized__ = False
 
-    def save(self, session=None):
+    def save(self, session):
         """ Save this object """
-        if not session:
-            session = get_session()
-
         session.add(self)
 
         try:
@@ -74,11 +69,8 @@ class Base(object):
             else:
                 raise
 
-    def delete(self, session=None):
+    def delete(self, session):
         """ Delete this object """
-        if not session:
-            session = get_session()
-
         session.delete(self)
         session.flush()
 
@@ -126,5 +118,9 @@ Base = declarative_base(cls=Base)
 class Rate(Base):
     __tablename__ = 'rates'
 
-    name = Column(String, nullable=False, unique=True)
+    name = Column(String(60), nullable=False, unique=True)
     value = Column(Integer, nullable=False)
+
+
+class Item(Base):
+    __tablename__ = 'items'

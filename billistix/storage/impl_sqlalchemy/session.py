@@ -1,5 +1,3 @@
-# vim: tabstop=4 shiftwidth=4 softtabstop=4
-
 # Copyright 2010 United States Government as represented by the
 # Administrator of the National Aeronautics and Space Administration.
 # All Rights Reserved.
@@ -26,8 +24,8 @@ from sqlalchemy.exc import DisconnectionError, OperationalError
 import sqlalchemy.orm
 from sqlalchemy.pool import NullPool, StaticPool
 
-import billistix.openstack.common.cfg as cfg
-import billistix.openstack.common.log as logging
+from billistix.openstack.common import cfg
+from billistix.openstack.common import log as logging
 
 LOG = logging.getLogger(__name__)
 
@@ -35,27 +33,21 @@ _MAKER = None
 _ENGINE = None
 
 sql_opts = [
-    cfg.IntOpt('sql_connection_debug',
-               default=0,
-               help='Verbosity of SQL debugging information. 0=None, '
-                    '100=Everything'),
-    cfg.BoolOpt('sql_connection_trace',
-               default=False,
-               help='Add python stack traces to SQL as comment strings'),
-    cfg.BoolOpt('sqlite_synchronous',
-                default=True,
+    cfg.IntOpt('sql_connection_debug', default=0,
+               help='Verbosity of SQL debugging information. 0=None,'
+               ' 100=Everything'),
+    cfg.BoolOpt('sql_connection_trace', default=False,
+                help='Add python stack traces to SQL as comment strings'),
+    cfg.BoolOpt('sqlite_synchronous', default=True,
                 help='If passed, use synchronous mode for sqlite'),
-    cfg.IntOpt('sql_idle_timeout',
-               default=3600,
+    cfg.IntOpt('sql_idle_timeout', default=3600,
                help='timeout before idle sql connections are reaped'),
-    cfg.IntOpt('sql_max_retries',
-               default=10,
+    cfg.IntOpt('sql_max_retries', default=10,
                help='maximum db connection retries during startup. '
-                    '(setting -1 implies an infinite retry count)'),
-    cfg.IntOpt('sql_retry_interval',
-               default=10,
-               help='interval between retries of opening a sql connection'),
-           ]
+               '(setting -1 implies an infinite retry count)'),
+    cfg.IntOpt('sql_retry_interval', default=10,
+               help='interval between retries of opening a sql connection')
+]
 
 cfg.CONF.register_opts(sql_opts)
 
@@ -120,7 +112,7 @@ def get_engine():
     global _ENGINE
     if _ENGINE is None:
         connection_dict = sqlalchemy.engine.url.make_url(
-                                                  cfg.CONF.database_connection)
+            cfg.CONF.database_connection)
 
         engine_args = {
             "pool_recycle": cfg.CONF.sql_idle_timeout,
@@ -141,7 +133,6 @@ def get_engine():
                 engine_args["poolclass"] = StaticPool
                 engine_args["connect_args"] = {'check_same_thread': False}
 
-        print "CONNECTION", cfg.CONF.database_connection
         _ENGINE = sqlalchemy.create_engine(cfg.CONF.database_connection,
                                            **engine_args)
 
@@ -159,7 +150,6 @@ def get_engine():
             _do_query = debug_mysql_do_query()
             setattr(MySQLdb.cursors.BaseCursor, '_do_query', _do_query)
 
-        print _ENGINE
         try:
             _ENGINE.connect()
         except OperationalError, e:
@@ -180,7 +170,7 @@ def get_engine():
                     break
                 except OperationalError, e:
                     if (remaining != 'infinite' and remaining == 0) or \
-                       not is_db_connection_error(e.args[0]):
+                            not is_db_connection_error(e.args[0]):
                         raise
     return _ENGINE
 
@@ -191,8 +181,3 @@ def get_maker(engine, autocommit=True, expire_on_commit=False, autoflush=True):
                                        autocommit=autocommit,
                                        autoflush=autoflush,
                                        expire_on_commit=expire_on_commit)
-
-
-def func():
-    # ugly hack sqlalchemy name conflict from impl_sqlalchemy
-    return sqlalchemy.func
