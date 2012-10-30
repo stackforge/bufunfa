@@ -28,7 +28,7 @@ dependency_links = common_setup.parse_dependency_links([
     'tools/setup-requires'
 ])
 
-version = '0.2'
+version = '0.1'
 
 setup(
     name='billistix',
@@ -47,6 +47,7 @@ setup(
     dependency_links=dependency_links,
     scripts=[
         'bin/billistix-api',
+        'bin/billistix-central',
         'bin/billistix-sync',
         'bin/billistix-meter-sync'
     ],
