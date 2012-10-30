@@ -1,0 +1,14 @@
+#!/bin/env python
+
+import sys
+from billistix import storage
+from billistix.openstack.common import cfg
+
+if __name__ == '__main__':
+    cfg.CONF(sys.argv[1:])
+
+    storage.register_opts(cfg.CONF)
+    engine = storage.get_engine(cfg.CONF)
+    conn = engine.get_connection(cfg.CONF)
+
+    conn.register_models()
