@@ -21,7 +21,7 @@ class Service(rpc_service.Service):
         return self.storage_conn.add_rate(context, values)
 
     def get_rates(self, context):
-        return self.storage_conn.get_rate(context, rate_id)
+        return self.storage_conn.get_rates(context)
 
     def update_rate(self, context, rate_id, values):
         return self.storage_conn.update_rate(context, rate_id, values)
