@@ -13,6 +13,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+# NOTE(zykes): Copied verbatim from Moniker
 import copy
 from uuid import uuid4
 from urlparse import urlparse
@@ -150,7 +151,7 @@ class Record(Base):
     start_timestamp = Column(DateTime)
     end_timestamp = Column(DateTime)
 
-    customer_system = relationship("System", backref="records")
+    customer_system = relationship("CustomerSystem", backref="records")
     customer_system_id = Column(Unicode(100), ForeignKey('customer_systems.system_id'), nullable=False)
 
 
