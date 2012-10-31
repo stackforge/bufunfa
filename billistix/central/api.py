@@ -46,11 +46,11 @@ def delete_rate(context, rate_id):
     return RPC.call(context, msg)
 
 
-def store_item(context, values):
+def process_record(context, values):
     msg = {
-        "method": "store_item",
+        "method": "process_record",
         "args": {
-            "item": values
+            "values": values
         }
     }
     return RPC.call(context, msg)

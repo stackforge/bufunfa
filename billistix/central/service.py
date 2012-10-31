@@ -28,3 +28,6 @@ class Service(rpc_service.Service):
 
     def delete_rate(self, context, rate_id):
         return self.storage_conn.delete_rate(context, rate_id)
+
+    def process_record(self, context, values):
+        return self.storage_conn.process_record(context, values)
