@@ -69,7 +69,7 @@ class RecordEngine(OpenstackEngine):
                             type=type_,
                             volume=volume,
                             extra=metadata,
-                            start=duration_info.get('start_timestamp'),
+                            start_timestamp=duration_info.get('start_timestamp'),
                             end_timestamp=duration_info.get('end_timestamp'),
                             duration=duration_info.get('duration')
                         )
