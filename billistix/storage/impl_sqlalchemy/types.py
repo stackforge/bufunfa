@@ -58,7 +58,7 @@ class JSONBlob(TypeDecorator):
     """
     A way to implement JSON
     """
-    impl = sql.Text
+    impl = Text
 
     def process_bind_param(self, value, dialect):
         return json.dumps(value)
