@@ -49,7 +49,7 @@ setup(
         'bin/billistix-api',
         'bin/billistix-central',
         'bin/billistix-sync',
-        'bin/billistix-meter-sync'
+        'bin/billistix-recorder'
     ],
     cmdclass=common_setup.get_cmdclass(),
     entry_points=textwrap.dedent("""
@@ -58,5 +58,7 @@ setup(
         mysql = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
         postgresql = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
         sqlite = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
+        [billistix.recorder]
+        ceilometer = billistix.recorder.impl_ceilometer:RecordEngine
         """)
 )
