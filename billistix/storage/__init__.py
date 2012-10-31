@@ -1,6 +1,8 @@
-# Copyright 2012 Bouvet ASA
+# -*- encoding: utf-8 -*-
 #
-# Author: Endre Karlson <endre.karlson@bouvet.no>
+# Copyright © 2012 New Dream Network, LLC (DreamHost)
+#
+# Author: Doug Hellmann <doug.hellmann@dreamhost.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -13,6 +15,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+# NOTE(zykes): Copied from Ceilometer
 from urlparse import urlparse
 from stevedore import driver
 from billistix.openstack.common import cfg
