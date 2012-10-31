@@ -13,8 +13,9 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-from sqlalchemy.types import TypeDecorator, CHAR, VARCHAR
+from sqlalchemy.types import TypeDecorator, CHAR, VARCHAR, Text
 from sqlalchemy.dialects.postgresql import UUID as pgUUID
+import simplejson as json
 import uuid
 
 
@@ -51,3 +52,16 @@ class UUID(TypeDecorator):
             return value
         else:
             return uuid.UUID(value)
+
+
+class JSONBlob(TypeDecorator):
+    """
+    A way to implement JSON
+    """
+    impl = sql.Text
+
+    def process_bind_param(self, value, dialect):
+        return json.dumps(value)
+
+    def process_result_value(self, value, dialect):
+        return json.loads(value)
