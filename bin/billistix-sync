@@ -11,4 +11,4 @@ if __name__ == '__main__':
     engine = storage.get_engine(cfg.CONF)
     conn = engine.get_connection(cfg.CONF)
 
-    conn.register_models()
+    conn.setup_schema()
