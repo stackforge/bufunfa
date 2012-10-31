@@ -28,7 +28,7 @@ import billistix.openstack.common.cfg as cfg
 from billistix.openstack.common import log
 from billistix.openstack.common import timeutils
 from billistix.storage.impl_sqlalchemy.session import get_session
-from billistix.storage.impl_sqlalchemy.types import UUID
+from billistix.storage.impl_sqlalchemy.types import JSONBlob, UUID
 
 LOG = log.getLogger(__name__)
 
@@ -146,7 +146,7 @@ class Record(Base):
     resource_id = Column(Unicode(80), nullable=False)
     type = Column(Unicode(80), nullable=False)
     volume = Column(Float, nullable=False)
-    metadata = Column(JSON, nullable=True)
+    extra = Column(JSONBlob, nullable=True)
     start_timestamp = Column(DateTime)
     end_timestamp = Column(DateTime)
 
