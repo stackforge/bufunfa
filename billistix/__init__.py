@@ -13,7 +13,7 @@ cfg.CONF.register_opts([
                help='Name of this node'),
     cfg.StrOpt('control-exchange', default='billistix',
                help='AMQP exchange to connect to if using RabbitMQ or Qpid'),
-    cfg.StrOpt('central-topic', default='central', help='Central Topic'),
-    cfg.StrOpt('worker-topic', default='worker', help='Worker Topic'),
+    cfg.StrOpt('central-topic', default='billing_central', help='Central Topic'),
+    cfg.StrOpt('worker-topic', default='billing_worker', help='Worker Topic'),
     cfg.StrOpt('state-path', default='$pybasedir', help='State Path')
 ])
