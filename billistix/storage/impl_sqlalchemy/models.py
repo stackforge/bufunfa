@@ -17,7 +17,7 @@ import copy
 from uuid import uuid4
 from urlparse import urlparse
 
-from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Enum
+from sqlalchemy import Column, DateTime, Unicode, Float, Integer, ForeignKey
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import relationship, backref, object_mapper
 from sqlalchemy.ext.declarative import declarative_base
@@ -115,12 +115,50 @@ class Base(object):
 Base = declarative_base(cls=Base)
 
 
+class Customer(Base):
+    """
+    A way to correlate multiple tenants or future Domains in OpenStack into
+    a single aggregation point
+    """
+    __tablename__ = 'customers'
+    name = Column(Unicode(100), nullable=False)
+
+
+class CustomerSystem(Base):
+    """
+    A way of tying a "System's Customer" to a Billistix Customer
+
+    Examples:
+        OpenStack Domain or Tenant to a Customer
+        Credit card system ID
+    """
+    __tablename__ = "customer_systems"
+    system_id = Column(Unicode(100), index=True)
+    system_name = Column(Unicode(100))
+
+    customer = relationship("Customer", backref="systems")
+    customer_id = Column(UUID, ForeignKey('customers.id'))
+
+
+class Record(Base):
+    __tablename__ = 'records'
+
+    resource_id = Column(Unicode(80), nullable=False)
+    type = Column(Unicode(80), nullable=False)
+    volume = Column(Float, nullable=False)
+    metadata = Column(JSON, nullable=True)
+    start_timestamp = Column(DateTime)
+    end_timestamp = Column(DateTime)
+
+    customer_system = relationship("System", backref="records")
+    customer_system_id = Column(Unicode(100), ForeignKey('customer_systems.system_id'), nullable=False)
+
+
 class Rate(Base):
+    """
+    The rate to charge for something
+    """
     __tablename__ = 'rates'
 
-    name = Column(String(60), nullable=False, unique=True)
-    value = Column(Integer, nullable=False)
-
-
-class Item(Base):
-    __tablename__ = 'items'
+    name = Column(Unicode(60), nullable=False, unique=True)
+    value = Column(Float, nullable=False)

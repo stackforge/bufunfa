@@ -6,6 +6,8 @@ from billistix.storage import base
 from billistix.storage.impl_sqlalchemy import models
 from billistix.storage.impl_sqlalchemy.session import get_session
 
+from pprint import pformat
+
 LOG = log.getLogger(__name__)
 
 
@@ -77,6 +79,9 @@ class Connection(base.Connection):
     def delete_rate(self, context, rate_id):
         rate = self._get_id(context, rate_id)
         rate.delete(self.session)
+
+    def process_record(self, context, values):
+        print pformat(values)
 
 
 def row2dict(row):
