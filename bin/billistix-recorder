@@ -26,6 +26,9 @@ eventlet.monkey_patch()
 
 config_files = cfg.find_config_files(project="billistix", prog="billistix-recorder-sync")
 
+if os.path.exists('./etc/billistix-recorder.conf'):
+    config_files.append('./etc/billistix-recorder.conf')
+
 cfg.CONF(sys.argv[1:], project="billistix", prog="billistix-recorder-sync",
         default_config_files=config_files)
 
