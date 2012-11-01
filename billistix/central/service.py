@@ -18,6 +18,7 @@ from billistix.openstack.common import cfg
 from billistix.openstack.common import log
 from billistix.openstack.common.rpc import service as rpc_service
 from billistix import storage
+from billistix import utils
 
 
 LOG = log.getLogger(__name__)
