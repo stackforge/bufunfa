@@ -84,7 +84,7 @@ class Connection(base.Connection):
         return [row2dict(row) for row in query.all()]
 
     def update_rate(self, context, rate_id, values):
-        rate = self._get_id(context, model, rate_id)
+        rate = self._get_id(context, models.Rate, rate_id)
         rate.update(values)
         try:
             rate.save(self.session)
@@ -93,7 +93,7 @@ class Connection(base.Connection):
         return dict(rate)
 
     def delete_rate(self, context, rate_id):
-        rate = self._get_id(context, rate_id)
+        rate = self._get_id(context, models.Rate, rate_id)
         rate.delete(self.session)
 
     def process_record(self, context, values):
