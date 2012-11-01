@@ -27,8 +27,8 @@ DRIVER_NAMESPACE = 'billistix.storage'
 
 cfg.CONF.register_opts([
     cfg.StrOpt('database_connection',
-                default='sqlite:///$state_path/billistix.db',
-                help='The database driver to use'),
+               default='sqlite:///$state_path/billistix.db',
+               help='The database driver to use'),
 ])
 
 
@@ -40,10 +40,10 @@ def register_opts(conf):
 def get_engine(conf):
     engine_name = urlparse(conf.database_connection).scheme
     LOG.debug('looking for %r engine in %r',
-        engine_name, DRIVER_NAMESPACE)
+              engine_name, DRIVER_NAMESPACE)
     mgr = driver.DriverManager(DRIVER_NAMESPACE,
-        engine_name,
-        invoke_on_load=True)
+                               engine_name,
+                               invoke_on_load=True)
     return mgr.driver
 
 
@@ -57,6 +57,7 @@ def setup_schema():
     """ Create the DB - Used for testing purposes """
     connection = get_connection(cfg.CONF)
     connection.setup_schema()
+
 
 def teardown_schema():
     """ Reset the DB to default - Used for testing purposes """

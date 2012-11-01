@@ -22,4 +22,3 @@ class CentralTestCase(TestCase):
 
     def get_central_service(self):
         return central_service.Service()
-

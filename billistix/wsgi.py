@@ -25,4 +25,3 @@ class Middleware(wsgi.Middleware):
             return cls(app, **local_conf)
 
         return _factory
-

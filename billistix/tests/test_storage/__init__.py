@@ -36,8 +36,8 @@ class StorageDriverTestCase(StorageTestCase):
     __test__ = False
 
     rate_fixtures = [
-            {'name': 'cpu', 'value': 1},
-            {'name': 'memory', 'value': 2}
+        {'name': 'cpu', 'value': 1},
+        {'name': 'memory', 'value': 2}
     ]
 
     def setUp(self):
@@ -72,8 +72,8 @@ class StorageDriverTestCase(StorageTestCase):
             self.admin_context,
             {'name': 'cpu', 'value': 1})
         self.storage_conn.update_rate(
-                self.admin_context,
-                rate.id,
-                values={'name': 'memory', 'value': 15})
+            self.admin_context,
+            rate.id,
+            values={'name': 'memory', 'value': 15})
         self.assertEquals(rate.name, 'memory')
         self.assertEquals(rate.value, 15)

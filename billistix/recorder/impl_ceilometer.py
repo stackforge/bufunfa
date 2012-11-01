@@ -100,7 +100,9 @@ class RecordEngine(OpenstackEngine):
             type_ = 'port'
             metadata['network_id'] = resource['metadata'].get('network_id')
             metadata['mac'] = resource['metadata'].get('mac_address')
-            metadata['ips'] = ','.join([item['ip_address'] \
-                for item in resource['metadata'].get('fixed_ips', []) \
-                    if 'ip_address' in item])
+            ips = []
+            for item in resource['metadata'].get('fixed_ips', []):
+                if 'ip_address' in item:
+                    ips.append(item['ip_address'])
+            metadata['ips'] = ','.join(ips)
         return type_, volume, metadata

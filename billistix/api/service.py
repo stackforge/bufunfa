@@ -33,7 +33,7 @@ class Service(wsgi.Service):
         config_path = utils.find_config(config_path)
 
         self.application = deploy.loadapp("config:%s" % config_path,
-                                            name='osapi_billing')
+                                          name='osapi_billing')
 
     def start(self):
         return super(Service, self).start(application=self.application,

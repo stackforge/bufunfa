@@ -37,7 +37,8 @@ class RecorderEngine(object):
             "customer_system_id": "c97027dd880d4c129ae7a4ba7edade05"
         }
 
-        resource_id: The ID of the resource that's billed (External ID typically)
+        resource_id: The ID of the resource that's billed
+                    (External ID typically)
         type: The type, application, instance, network etc
         volume: The volume that's currently pulled
         metadata: JSON

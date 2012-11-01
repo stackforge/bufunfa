@@ -36,6 +36,7 @@ class StorageEngine(object):
         Return a Connection instance based on the configuration settings.
         """
 
+
 class Connection(object):
     """
     A Connection

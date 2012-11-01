@@ -19,7 +19,7 @@ import unittest
 import mox
 from billistix.openstack.common import cfg
 from billistix.openstack.common import log as logging
-from billistix.openstack.common.context import RequestContext, get_admin_context
+from billistix.openstack.common import context
 from billistix import storage
 
 LOG = logging.getLogger(__name__)
@@ -48,10 +48,10 @@ class TestCase(unittest.TestCase):
             cfg.CONF.set_override(k, v, group)
 
     def get_context(self, **kwargs):
-        return RequestContext(**kwargs)
+        return context.RequestContext(**kwargs)
 
     def get_admin_context(self):
-        return get_admin_context()
+        return context.get_admin_context()
 
 
 if sys.version_info < (2, 7):

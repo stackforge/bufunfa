@@ -152,7 +152,9 @@ class Record(Base):
     end_timestamp = Column(DateTime)
 
     customer_system = relationship("CustomerSystem", backref="records")
-    customer_system_id = Column(Unicode(100), ForeignKey('customer_systems.system_id'), nullable=False)
+    customer_system_id = Column(Unicode(100),
+                                ForeignKey('customer_systems.system_id'),
+                                nullable=False)
 
 
 class Rate(Base):

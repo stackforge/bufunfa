@@ -28,8 +28,8 @@ LOG = log.getLogger(__name__)
 
 cfg.CONF.register_opts([
     cfg.IntOpt('periodic_interval',
-                default=1,
-                help='seconds between running periodic tasks'),
+               default=1,
+               help='seconds between running periodic tasks'),
 ])
 
 CLI_OPTIONS = [
@@ -69,7 +69,7 @@ class Service(rpc_service.Service):
     def start(self):
         task = LoopingCall(self.poll_records)
         task.start(interval=cfg.CONF.periodic_interval,
-                initial_delay=cfg.CONF.periodic_interval)
+                   initial_delay=cfg.CONF.periodic_interval)
         self.timers.append(task)
         super(Service, self).start()
 

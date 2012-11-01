@@ -50,4 +50,3 @@ class KeystoneContextMiddleware(wsgi.Middleware):
 class NoAuthMiddleware(wsgi.Middleware):
     def process_request(self, request):
         request.environ['context'] = RequestContext()
-
