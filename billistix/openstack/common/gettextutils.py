@@ -16,11 +16,11 @@
 #    under the License.
 
 """
-gettext for billistix.openstack-common modules.
+gettext for openstack-common modules.
 
-Usual usage in an billistix.openstack.common module:
+Usual usage in an openstack.common module:
 
-    from billistix.openstack.common.gettextutils import _
+    from openstack.common.gettextutils import _
 """
 
 import gettext

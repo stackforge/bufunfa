@@ -23,8 +23,8 @@ import logging
 import random
 import shlex
 
-from eventlet import greenthread
 from eventlet.green import subprocess
+from eventlet import greenthread
 
 from billistix.openstack.common import exception
 from billistix.openstack.common.gettextutils import _

@@ -18,7 +18,7 @@
 #    under the License.
 
 """
-Shared code between AMQP based billistix.openstack.common.rpc implementations.
+Shared code between AMQP based openstack.common.rpc implementations.
 
 The code in this module is shared between the rpc implemenations based on AMQP.
 Specifically, this includes impl_kombu and impl_qpid.  impl_carrot also uses
@@ -140,9 +140,6 @@ class ConnectionContext(rpc_common.Connection):
 
     def consume_in_thread(self):
         self.connection.consume_in_thread()
-
-    def consume_in_thread_group(self, thread_group):
-        self.connection.consume_in_thread_group(thread_group)
 
     def __getattr__(self, key):
         """Proxy all other calls to the Connection instance"""

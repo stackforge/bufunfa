@@ -49,7 +49,7 @@ zmq_opts = [
     # The module.Class to use for matchmaking.
     cfg.StrOpt(
         'rpc_zmq_matchmaker',
-        default=('openstack.common.rpc.'
+        default=('billistix.openstack.common.rpc.'
                  'matchmaker.MatchMakerLocalhost'),
         help='MatchMaker driver',
     ),
@@ -370,23 +370,16 @@ class ZmqBaseReactor(ConsumerBase):
 
         LOG.info(_("Out reactor registered"))
 
-    def _consumer_thread_callback(self, sock):
-        """ Consumer thread callback used by consume_in_* """
-
-        LOG.info(_("Consuming socket"))
-        while True:
-            self.consume(sock)
-
     def consume_in_thread(self):
+        def _consume(sock):
+            LOG.info(_("Consuming socket"))
+            while True:
+                self.consume(sock)
+
         for k in self.proxies.keys():
             self.threads.append(
-                self.pool.spawn(self._consumer_thread_callback, k)
+                self.pool.spawn(_consume, k)
             )
-
-    def consume_in_thread_group(self, thread_group):
-        """ Consume from all queues/consumers in the supplied ThreadGroup"""
-        for k in self.proxies.keys():
-            thread_group.add_thread(self._consumer_thread_callback, k)
 
     def wait(self):
         for t in self.threads:
@@ -530,9 +523,6 @@ class Connection(rpc_common.Connection):
     def consume_in_thread(self):
         self.reactor.consume_in_thread()
 
-    def consume_in_thread_group(self, thread_group):
-        self.reactor.consume_in_thread_group(thread_group)
-
 
 def _cast(addr, context, msg_id, topic, msg, timeout=None):
     timeout_cast = timeout or CONF.rpc_cast_timeout
@@ -556,7 +546,7 @@ def _call(addr, context, msg_id, topic, msg, timeout=None):
     timeout = timeout or CONF.rpc_response_timeout
 
     # The msg_id is used to track replies.
-    msg_id = str(uuid.uuid4().hex)
+    msg_id = uuid.uuid4().hex
 
     # Replies always come into the reply service.
     reply_topic = "zmq_replies.%s" % CONF.rpc_zmq_host

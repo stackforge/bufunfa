@@ -31,9 +31,9 @@ import kombu.messaging
 
 from billistix.openstack.common import cfg
 from billistix.openstack.common.gettextutils import _
+from billistix.openstack.common import network_utils
 from billistix.openstack.common.rpc import amqp as rpc_amqp
 from billistix.openstack.common.rpc import common as rpc_common
-from billistix.openstack.common import network_utils
 
 kombu_opts = [
     cfg.StrOpt('kombu_ssl_version',
@@ -267,6 +267,7 @@ class FanoutConsumer(ConsumerBase):
 
         # Default options
         options = {'durable': False,
+                   'queue_arguments': _get_queue_arguments(conf),
                    'auto_delete': True,
                    'exclusive': True}
         options.update(kwargs)
@@ -702,24 +703,16 @@ class Connection(object):
             except StopIteration:
                 return
 
-    def _consumer_thread_callback(self):
-        """ Consumer thread callback used by consume_in_* """
-        try:
-            self.consume()
-        except greenlet.GreenletExit:
-            return
-
     def consume_in_thread(self):
         """Consumer from all queues/consumers in a greenthread"""
-
+        def _consumer_thread():
+            try:
+                self.consume()
+            except greenlet.GreenletExit:
+                return
         if self.consumer_thread is None:
-            self.consumer_thread = eventlet.spawn(
-                self._consumer_thread_callback)
+            self.consumer_thread = eventlet.spawn(_consumer_thread)
         return self.consumer_thread
-
-    def consume_in_thread_group(self, thread_group):
-        """ Consume from all queues/consumers in the supplied ThreadGroup"""
-        thread_group.add_thread(self._consumer_thread_callback)
 
     def create_consumer(self, topic, proxy, fanout=False):
         """Create a consumer that calls a method in a proxy object"""

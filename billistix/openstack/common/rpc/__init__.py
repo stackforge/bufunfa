@@ -47,7 +47,7 @@ rpc_opts = [
                help='Seconds to wait before a cast expires (TTL). '
                     'Only supported by impl_zmq.'),
     cfg.ListOpt('allowed_rpc_exception_modules',
-                default=['openstack.common.exception',
+                default=['billistix.openstack.common.exception',
                          'nova.exception',
                          'cinder.exception',
                          ],
@@ -80,7 +80,7 @@ def create_connection(new=True):
                 implementation is free to return an existing connection from a
                 pool.
 
-    :returns: An instance of billistix.openstack.common.rpc.common.Connection
+    :returns: An instance of openstack.common.rpc.common.Connection
     """
     return _get_impl().create_connection(cfg.CONF, new=new)
 
@@ -92,7 +92,7 @@ def call(context, topic, msg, timeout=None):
                     request.
     :param topic: The topic to send the rpc message to.  This correlates to the
                   topic argument of
-                  billistix.openstack.common.rpc.common.Connection.create_consumer()
+                  openstack.common.rpc.common.Connection.create_consumer()
                   and only applies when the consumer was created with
                   fanout=False.
     :param msg: This is a dict in the form { "method" : "method_to_invoke",
@@ -102,7 +102,7 @@ def call(context, topic, msg, timeout=None):
 
     :returns: A dict from the remote method.
 
-    :raises: billistix.openstack.common.rpc.common.Timeout if a complete response
+    :raises: openstack.common.rpc.common.Timeout if a complete response
              is not received before the timeout is reached.
     """
     return _get_impl().call(cfg.CONF, context, topic, msg, timeout)
@@ -115,7 +115,7 @@ def cast(context, topic, msg):
                     request.
     :param topic: The topic to send the rpc message to.  This correlates to the
                   topic argument of
-                  billistix.openstack.common.rpc.common.Connection.create_consumer()
+                  openstack.common.rpc.common.Connection.create_consumer()
                   and only applies when the consumer was created with
                   fanout=False.
     :param msg: This is a dict in the form { "method" : "method_to_invoke",
@@ -136,7 +136,7 @@ def fanout_cast(context, topic, msg):
                     request.
     :param topic: The topic to send the rpc message to.  This correlates to the
                   topic argument of
-                  billistix.openstack.common.rpc.common.Connection.create_consumer()
+                  openstack.common.rpc.common.Connection.create_consumer()
                   and only applies when the consumer was created with
                   fanout=True.
     :param msg: This is a dict in the form { "method" : "method_to_invoke",
@@ -158,7 +158,7 @@ def multicall(context, topic, msg, timeout=None):
                     request.
     :param topic: The topic to send the rpc message to.  This correlates to the
                   topic argument of
-                  billistix.openstack.common.rpc.common.Connection.create_consumer()
+                  openstack.common.rpc.common.Connection.create_consumer()
                   and only applies when the consumer was created with
                   fanout=False.
     :param msg: This is a dict in the form { "method" : "method_to_invoke",
@@ -171,7 +171,7 @@ def multicall(context, topic, msg, timeout=None):
               returned and X is the Nth value that was returned by the remote
               method.
 
-    :raises: billistix.openstack.common.rpc.common.Timeout if a complete response
+    :raises: openstack.common.rpc.common.Timeout if a complete response
              is not received before the timeout is reached.
     """
     return _get_impl().multicall(cfg.CONF, context, topic, msg, timeout)
