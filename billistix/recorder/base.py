@@ -15,7 +15,7 @@
 # under the License.
 import abc
 
-from billistix.openstack.common import cfg
+from bufunfa.openstack.common import cfg
 
 
 cfg.CONF.register_opt(

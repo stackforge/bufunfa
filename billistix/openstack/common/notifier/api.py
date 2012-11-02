@@ -15,13 +15,13 @@
 
 import uuid
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import context
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import importutils
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import timeutils
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import context
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import importutils
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import timeutils
 
 
 LOG = logging.getLogger(__name__)

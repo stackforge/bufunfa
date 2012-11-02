@@ -26,11 +26,11 @@ import greenlet
 import qpid.messaging
 import qpid.messaging.exceptions
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common.rpc import amqp as rpc_amqp
-from billistix.openstack.common.rpc import common as rpc_common
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common.rpc import amqp as rpc_amqp
+from bufunfa.openstack.common.rpc import common as rpc_common
 
 LOG = logging.getLogger(__name__)
 

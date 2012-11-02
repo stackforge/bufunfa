@@ -24,12 +24,12 @@ from sqlalchemy.orm import relationship, backref, object_mapper
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from billistix import exceptions
-import billistix.openstack.common.cfg as cfg
-from billistix.openstack.common import log
-from billistix.openstack.common import timeutils
-from billistix.storage.impl_sqlalchemy.session import get_session
-from billistix.storage.impl_sqlalchemy.types import JSONBlob, UUID
+from bufunfa import exceptions
+import bufunfa.openstack.common.cfg as cfg
+from bufunfa.openstack.common import log
+from bufunfa.openstack.common import timeutils
+from bufunfa.storage.impl_sqlalchemy.session import get_session
+from bufunfa.storage.impl_sqlalchemy.types import JSONBlob, UUID
 
 LOG = log.getLogger(__name__)
 

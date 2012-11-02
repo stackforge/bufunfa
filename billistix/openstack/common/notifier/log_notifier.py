@@ -14,9 +14,9 @@
 #    under the License.
 
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common import log as logging
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common import log as logging
 
 
 CONF = cfg.CONF
@@ -30,6 +30,6 @@ def notify(_context, message):
                            CONF.default_notification_level)
     priority = priority.lower()
     logger = logging.getLogger(
-        'billistix.openstack.common.notification.%s' %
+        'bufunfa.openstack.common.notification.%s' %
         message['event_type'])
     getattr(logger, priority)(jsonutils.dumps(message))

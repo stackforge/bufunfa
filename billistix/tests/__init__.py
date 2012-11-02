@@ -17,10 +17,10 @@
 import sys
 import unittest
 import mox
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import context
-from billistix import storage
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import context
+from bufunfa import storage
 
 LOG = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class TestCase(unittest.TestCase):
 
         self.mox = mox.Mox()
         self.config(database_connection='sqlite://',
-                    rpc_backend='billistix.openstack.common.rpc.impl_fake',
+                    rpc_backend='bufunfa.openstack.common.rpc.impl_fake',
                     notification_driver=[])
         storage.setup_schema()
 

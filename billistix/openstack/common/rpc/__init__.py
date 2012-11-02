@@ -25,8 +25,8 @@ For some wrappers that add message versioning to rpc, see:
     rpc.proxy
 """
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import importutils
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import importutils
 
 
 rpc_opts = [
@@ -47,7 +47,7 @@ rpc_opts = [
                help='Seconds to wait before a cast expires (TTL). '
                     'Only supported by impl_zmq.'),
     cfg.ListOpt('allowed_rpc_exception_modules',
-                default=['billistix.openstack.common.exception',
+                default=['bufunfa.openstack.common.exception',
                          'nova.exception',
                          'cinder.exception',
                          ],

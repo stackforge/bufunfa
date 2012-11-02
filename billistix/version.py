@@ -13,8 +13,8 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-from billistix.openstack.common import version as common_version
+from bufunfa.openstack.common import version as common_version
 
 PRE_VERSION = '2013.1'
-version_info = common_version.VersionInfo('billistix', pre_version=PRE_VERSION)
+version_info = common_version.VersionInfo('bufunfa', pre_version=PRE_VERSION)
 

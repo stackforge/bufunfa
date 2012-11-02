@@ -14,11 +14,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 # NOTE(zykes): Copied verbatim from Moniker
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log
-from billistix.openstack.common.rpc import service as rpc_service
-from billistix import storage
-from billistix import utils
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log
+from bufunfa.openstack.common.rpc import service as rpc_service
+from bufunfa import storage
+from bufunfa import utils
 
 
 LOG = log.getLogger(__name__)

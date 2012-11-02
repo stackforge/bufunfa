@@ -24,8 +24,8 @@ from sqlalchemy.exc import DisconnectionError, OperationalError
 import sqlalchemy.orm
 from sqlalchemy.pool import NullPool, StaticPool
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log as logging
 
 LOG = logging.getLogger(__name__)
 

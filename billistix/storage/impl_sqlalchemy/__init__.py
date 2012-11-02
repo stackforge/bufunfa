@@ -16,11 +16,11 @@
 # NOTE(zykes): Copied from Moniker / Ceilometer
 import copy
 
-from billistix import exceptions
-from billistix.openstack.common import log
-from billistix.storage import base
-from billistix.storage.impl_sqlalchemy import models
-from billistix.storage.impl_sqlalchemy.session import get_session
+from bufunfa import exceptions
+from bufunfa.openstack.common import log
+from bufunfa.storage import base
+from bufunfa.storage.impl_sqlalchemy import models
+from bufunfa.storage.impl_sqlalchemy.session import get_session
 
 from pprint import pformat
 

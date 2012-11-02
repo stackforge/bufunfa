@@ -21,10 +21,10 @@ import copy
 import logging
 import traceback
 
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import importutils
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common import local
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import importutils
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common import local
 
 
 LOG = logging.getLogger(__name__)

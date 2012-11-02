@@ -17,8 +17,8 @@
 from setuptools import setup, find_packages
 import textwrap
 
-from billistix.openstack.common import setup as common_setup
-from billistix.version import version_info as version
+from bufunfa.openstack.common import setup as common_setup
+from bufunfa.version import version_info as version
 
 install_requires = common_setup.parse_requirements(['tools/pip-requires'])
 tests_require = common_setup.parse_requirements(['tools/test-requires'])
@@ -30,12 +30,12 @@ dependency_links = common_setup.parse_dependency_links([
 ])
 
 setup(
-    name='billistix',
+    name='bufunfa',
     version=version.canonical_version_string(always=True),
     description='Billing as a Service',
     author='Endre Karlson',
     author_email='endre.karlson@bouvet.no',
-    url='https://launchpad.net/billistix',
+    url='https://launchpad.net/bufunfa',
     packages=find_packages(exclude=['bin']),
     include_package_data=True,
     test_suite='nose.collector',
@@ -45,20 +45,20 @@ setup(
     extras_require={'test': tests_require},
     dependency_links=dependency_links,
     scripts=[
-        'bin/billistix-api',
-        'bin/billistix-central',
-        'bin/billistix-sync',
-        'bin/billistix-recorder'
+        'bin/bufunfa-api',
+        'bin/bufunfa-central',
+        'bin/bufunfa-sync',
+        'bin/bufunfa-recorder'
     ],
     cmdclass=common_setup.get_cmdclass(),
     entry_points=textwrap.dedent("""
-        [billistix.storage]
-        mongodb = billistix.storage.impl_mongodb:MongoDBStorage
-        mysql = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
-        postgresql = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
-        sqlite = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
-        [billistix.recorder]
-        ceilometer = billistix.recorder.impl_ceilometer:RecordEngine
+        [bufunfa.storage]
+        mongodb = bufunfa.storage.impl_mongodb:MongoDBStorage
+        mysql = bufunfa.storage.impl_sqlalchemy:SQLAlchemyStorage
+        postgresql = bufunfa.storage.impl_sqlalchemy:SQLAlchemyStorage
+        sqlite = bufunfa.storage.impl_sqlalchemy:SQLAlchemyStorage
+        [bufunfa.recorder]
+        ceilometer = bufunfa.recorder.impl_ceilometer:RecordEngine
         """),
     classifiers=[
         'Development Status :: 3 - Alpha',

@@ -40,11 +40,11 @@ import stat
 import sys
 import traceback
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common import local
-from billistix.openstack.common import notifier
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common import local
+from bufunfa.openstack.common import notifier
 
 
 log_opts = [
@@ -257,7 +257,7 @@ class JSONFormatter(logging.Formatter):
 
 class PublishErrorsHandler(logging.Handler):
     def emit(self, record):
-        if ('billistix.openstack.common.notifier.log_notifier' in
+        if ('bufunfa.openstack.common.notifier.log_notifier' in
             CONF.notification_driver):
             return
         notifier.api.notify(None, 'error.publisher',

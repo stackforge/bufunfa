@@ -16,7 +16,7 @@
 
 import os
 import socket
-from billistix.openstack.common import cfg
+from bufunfa.openstack.common import cfg
 
 
 cfg.CONF.register_opts([
@@ -26,7 +26,7 @@ cfg.CONF.register_opts([
                help='Directory where the nova python module is installed'),
     cfg.StrOpt('host', default=socket.gethostname(),
                help='Name of this node'),
-    cfg.StrOpt('control-exchange', default='billistix',
+    cfg.StrOpt('control-exchange', default='bufunfa',
                help='AMQP exchange to connect to if using RabbitMQ or Qpid'),
     cfg.StrOpt('central-topic',
                default='billing_central',

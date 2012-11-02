@@ -14,10 +14,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 # NOTE(zykes): Copied from Moniker
-from billistix.openstack.common.context import RequestContext
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
-from billistix import wsgi
+from bufunfa.openstack.common.context import RequestContext
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log as logging
+from bufunfa import wsgi
 
 LOG = logging.getLogger(__name__)
 

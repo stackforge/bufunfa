@@ -13,8 +13,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from billistix.openstack.common import log as logging
-from billistix.openstack.common.gettextutils import _
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common.gettextutils import _
 
 LOG = logging.getLogger(__name__)
 

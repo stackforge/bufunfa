@@ -14,10 +14,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 import os
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import cfg
-from billistix.openstack.common.notifier import api as notifier_api
-from billistix import exceptions
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.notifier import api as notifier_api
+from bufunfa import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -37,16 +37,16 @@ def find_config(config_path):
 
     :param config_path: Full or relative path to the config.
     :returns: Full path of the config, if it exists.
-    :raises: `billistix.exceptions.ConfigNotFound`
+    :raises: `bufunfa.exceptions.ConfigNotFound`
     """
     possible_locations = [
         config_path,
-        os.path.join("etc", "billistix", config_path),
+        os.path.join("etc", "bufunfa", config_path),
         os.path.join("etc", config_path),
-        os.path.join(cfg.CONF.state_path, "etc", "billistix", config_path),
+        os.path.join(cfg.CONF.state_path, "etc", "bufunfa", config_path),
         os.path.join(cfg.CONF.state_path, "etc", config_path),
         os.path.join(cfg.CONF.state_path, config_path),
-        "/etc/billistix/%s" % config_path,
+        "/etc/bufunfa/%s" % config_path,
     ]
 
     for path in possible_locations:

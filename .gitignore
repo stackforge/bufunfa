@@ -16,6 +16,6 @@ etc/*.ini
 AUTHORS
 ChangeLog
 dist
-billistix/versioninfo
+bufunfa/versioninfo
 doc/source/api/*
 doc/build/*

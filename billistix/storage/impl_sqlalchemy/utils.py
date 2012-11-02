@@ -22,8 +22,8 @@
 
 import sqlalchemy
 
-from billistix.openstack.common import log as logging
-from billistix import exceptions
+from bufunfa.openstack.common import log as logging
+from bufunfa import exceptions
 
 
 LOG = logging.getLogger(__name__)

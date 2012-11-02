@@ -23,8 +23,8 @@ import itertools
 import json
 import logging
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common.gettextutils import _
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.gettextutils import _
 
 
 matchmaker_opts = [

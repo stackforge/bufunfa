@@ -15,11 +15,11 @@
 # under the License.
 import os
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log
-from billistix.openstack.common.context import get_admin_context
-from billistix.service import PeriodicService
-from billistix.recorder import get_plugin
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log
+from bufunfa.openstack.common.context import get_admin_context
+from bufunfa.service import PeriodicService
+from bufunfa.recorder import get_plugin
 
 
 LOG = log.getLogger(__name__)

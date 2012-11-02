@@ -15,7 +15,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-# This ensures the billistix.openstack namespace is defined
+# This ensures the bufunfa.openstack namespace is defined
 try:
     import pkg_resources
     pkg_resources.declare_namespace(__name__)

@@ -22,7 +22,7 @@ For more information about rpc API version numbers, see:
 """
 
 
-from billistix.openstack.common import rpc
+from bufunfa.openstack.common import rpc
 
 
 class RpcProxy(object):

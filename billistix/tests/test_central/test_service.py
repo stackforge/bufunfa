@@ -14,9 +14,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 import random
-from billistix.openstack.common import log as logging
-from billistix.tests.test_central import CentralTestCase
-from billistix import exceptions
+from bufunfa.openstack.common import log as logging
+from bufunfa.tests.test_central import CentralTestCase
+from bufunfa import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -26,5 +26,5 @@ class ServiceTest(CentralTestCase):
 
     def setUp(self):
         super(ServiceTest, self).setUp()
-        self.config(rpc_backend='billistix.openstack.common.rpc.impl_fake')
+        self.config(rpc_backend='bufunfa.openstack.common.rpc.impl_fake')
         self.service = self.get_central_service()

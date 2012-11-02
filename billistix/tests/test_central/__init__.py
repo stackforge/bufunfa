@@ -13,8 +13,8 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-from billistix.central import service as central_service
-from billistix.tests import TestCase
+from bufunfa.central import service as central_service
+from bufunfa.tests import TestCase
 
 
 class CentralTestCase(TestCase):

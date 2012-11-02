@@ -14,11 +14,11 @@
 #    under the License.
 
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import context as req_context
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import rpc
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import context as req_context
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import rpc
 
 LOG = logging.getLogger(__name__)
 

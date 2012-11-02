@@ -20,9 +20,9 @@ from eventlet import event
 from eventlet import greenthread
 from eventlet import greenpool
 
-from billistix.openstack.common import loopingcall
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import log as logging
+from bufunfa.openstack.common import loopingcall
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import log as logging
 
 
 LOG = logging.getLogger(__name__)

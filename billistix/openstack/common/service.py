@@ -30,14 +30,14 @@ import eventlet
 import greenlet
 import logging as std_logging
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import eventlet_backdoor
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import threadgroup
-from billistix.openstack.common.gettextutils import _
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import eventlet_backdoor
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import threadgroup
+from bufunfa.openstack.common.gettextutils import _
 
 try:
-    from billistix.openstack.common import rpc
+    from bufunfa.openstack.common import rpc
 except ImportError:
     rpc = None
 

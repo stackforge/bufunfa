@@ -15,10 +15,10 @@
 # under the License.
 # NOTE(zykes): Copied from Moniker
 from paste import deploy
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import wsgi
-from billistix.openstack.common import cfg
-from billistix import utils
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import wsgi
+from bufunfa.openstack.common import cfg
+from bufunfa import utils
 
 
 class Service(wsgi.Service):

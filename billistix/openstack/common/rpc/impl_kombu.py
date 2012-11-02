@@ -29,11 +29,11 @@ import kombu.connection
 import kombu.entity
 import kombu.messaging
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import network_utils
-from billistix.openstack.common.rpc import amqp as rpc_amqp
-from billistix.openstack.common.rpc import common as rpc_common
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import network_utils
+from bufunfa.openstack.common.rpc import amqp as rpc_amqp
+from bufunfa.openstack.common.rpc import common as rpc_common
 
 kombu_opts = [
     cfg.StrOpt('kombu_ssl_version',

@@ -14,12 +14,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 from stevedore import driver
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log
 
 LOG = log.getLogger(__name__)
 
-DRIVER_NAMESPACE = "billistix.recorder"
+DRIVER_NAMESPACE = "bufunfa.recorder"
 
 
 def get_plugin(conf):

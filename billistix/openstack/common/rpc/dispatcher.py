@@ -81,7 +81,7 @@ On the client side, the same changes should be made as in example 1.  The
 minimum version that supports the new parameter should be specified.
 """
 
-from billistix.openstack.common.rpc import common as rpc_common
+from bufunfa.openstack.common.rpc import common as rpc_common
 
 
 class RpcDispatcher(object):

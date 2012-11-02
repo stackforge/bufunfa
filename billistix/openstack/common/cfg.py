@@ -260,7 +260,7 @@ import os
 import string
 import sys
 
-from billistix.openstack.common import iniparser
+from bufunfa.openstack.common import iniparser
 
 
 class Error(Exception):

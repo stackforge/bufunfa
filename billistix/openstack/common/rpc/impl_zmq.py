@@ -25,11 +25,11 @@ import eventlet
 from eventlet.green import zmq
 import greenlet
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import importutils
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common.rpc import common as rpc_common
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import importutils
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common.rpc import common as rpc_common
 
 
 # for convenience, are not modified.
@@ -49,7 +49,7 @@ zmq_opts = [
     # The module.Class to use for matchmaking.
     cfg.StrOpt(
         'rpc_zmq_matchmaker',
-        default=('billistix.openstack.common.rpc.'
+        default=('bufunfa.openstack.common.rpc.'
                  'matchmaker.MatchMakerLocalhost'),
         help='MatchMaker driver',
     ),

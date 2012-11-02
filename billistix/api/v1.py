@@ -17,8 +17,8 @@ import datetime
 
 import flask
 
-from billistix.openstack.common import log
-from billistix.central import api as capi
+from bufunfa.openstack.common import log
+from bufunfa.central import api as capi
 
 LOG = log.getLogger(__name__)
 
@@ -55,6 +55,6 @@ def delete_rate(rate_id):
 
 
 def factory(global_config, **local_conf):
-    app = flask.Flask('billistix.api.v1')
+    app = flask.Flask('bufunfa.api.v1')
     app.register_blueprint(blueprint)
     return app

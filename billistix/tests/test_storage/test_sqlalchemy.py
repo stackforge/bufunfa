@@ -13,8 +13,8 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-from billistix.openstack.common import log as logging
-from billistix.tests.test_storage import StorageDriverTestCase
+from bufunfa.openstack.common import log as logging
+from bufunfa.tests.test_storage import StorageDriverTestCase
 
 LOG = logging.getLogger(__name__)
 

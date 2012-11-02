@@ -18,9 +18,9 @@ from datetime import datetime, timedelta
 
 import ceilometerclient
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log
-from billistix.recorder.openstack import OpenstackEngine
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log
+from bufunfa.recorder.openstack import OpenstackEngine
 
 LOG = log.getLogger(__name__)
 

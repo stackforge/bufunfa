@@ -17,25 +17,25 @@
 import os
 import sys
 import eventlet
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import service
-from billistix.api import service as api_service
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import service
+from bufunfa.api import service as api_service
 
 eventlet.monkey_patch()
 
 prog, project = utils.get_name(__name__)
 
-config_files = cfg.find_config_files(project='billistix',
-                                    prog='billistix-api')
+config_files = cfg.find_config_files(project='bufunfa',
+                                    prog='bufunfa-api')
 
-if os.path.exists('./etc/billistix-api.conf'):
-    config_files.append('./etc/billistix-api.conf')
+if os.path.exists('./etc/bufunfa-api.conf'):
+    config_files.append('./etc/bufunfa-api.conf')
 
-cfg.CONF(sys.argv[1:], project='billistix', prog='billistix-api',
+cfg.CONF(sys.argv[1:], project='bufunfa', prog='bufunfa-api',
         default_config_files=config_files)
 
-logging.setup('billistix')
+logging.setup('bufunfa')
 
 launcher = service.launch(api_service.Service())
 launcher.wait()

@@ -25,7 +25,7 @@ import eventlet
 import eventlet.backdoor
 import greenlet
 
-from billistix.openstack.common import cfg
+from bufunfa.openstack.common import cfg
 
 eventlet_backdoor_opts = [
     cfg.IntOpt('backdoor_port',

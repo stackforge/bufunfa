@@ -16,9 +16,9 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-from billistix.openstack.common import cfg
-from billistix.openstack.common import context
-from billistix.openstack.common.rpc import service as rpc_service
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import context
+from bufunfa.openstack.common.rpc import service as rpc_service
 
 
 """

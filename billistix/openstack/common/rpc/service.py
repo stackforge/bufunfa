@@ -17,11 +17,11 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import rpc
-from billistix.openstack.common.rpc import dispatcher as rpc_dispatcher
-from billistix.openstack.common import service
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import rpc
+from bufunfa.openstack.common.rpc import dispatcher as rpc_dispatcher
+from bufunfa.openstack.common import service
 
 
 LOG = logging.getLogger(__name__)

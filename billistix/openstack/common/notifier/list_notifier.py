@@ -13,15 +13,15 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import importutils
-from billistix.openstack.common import log as logging
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import importutils
+from bufunfa.openstack.common import log as logging
 
 
 list_notifier_drivers_opt = cfg.MultiStrOpt(
     'list_notifier_drivers',
-    default=['billistix.openstack.common.notifier.no_op_notifier'],
+    default=['bufunfa.openstack.common.notifier.no_op_notifier'],
     help='List of drivers to send notifications')
 
 CONF = cfg.CONF

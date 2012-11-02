@@ -31,11 +31,11 @@ import webob.exc
 from xml.dom import minidom
 from xml.parsers import expat
 
-from billistix.openstack.common import exception
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import log as logging
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common import service
+from bufunfa.openstack.common import exception
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common import service
 
 
 LOG = logging.getLogger(__name__)

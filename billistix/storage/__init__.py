@@ -18,16 +18,16 @@
 # NOTE(zykes): Copied from Ceilometer
 from urlparse import urlparse
 from stevedore import driver
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log
 
 LOG = log.getLogger(__name__)
 
-DRIVER_NAMESPACE = 'billistix.storage'
+DRIVER_NAMESPACE = 'bufunfa.storage'
 
 cfg.CONF.register_opts([
     cfg.StrOpt('database_connection',
-               default='sqlite:///$state_path/billistix.db',
+               default='sqlite:///$state_path/bufunfa.db',
                help='The database driver to use'),
 ])
 

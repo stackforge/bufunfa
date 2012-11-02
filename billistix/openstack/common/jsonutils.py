@@ -39,7 +39,7 @@ import itertools
 import json
 import xmlrpclib
 
-from billistix.openstack.common import timeutils
+from bufunfa.openstack.common import timeutils
 
 
 def to_primitive(value, convert_instances=False, level=0):

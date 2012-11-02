@@ -26,8 +26,8 @@ import shlex
 from eventlet.green import subprocess
 from eventlet import greenthread
 
-from billistix.openstack.common import exception
-from billistix.openstack.common.gettextutils import _
+from bufunfa.openstack.common import exception
+from bufunfa.openstack.common.gettextutils import _
 
 
 LOG = logging.getLogger(__name__)

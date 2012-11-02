@@ -34,11 +34,11 @@ from eventlet import greenpool
 from eventlet import pools
 from eventlet import semaphore
 
-from billistix.openstack.common import cfg
-from billistix.openstack.common import excutils
-from billistix.openstack.common.gettextutils import _
-from billistix.openstack.common import local
-from billistix.openstack.common.rpc import common as rpc_common
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import excutils
+from bufunfa.openstack.common.gettextutils import _
+from bufunfa.openstack.common import local
+from bufunfa.openstack.common.rpc import common as rpc_common
 
 
 LOG = logging.getLogger(__name__)

@@ -22,8 +22,8 @@ import time
 
 import eventlet
 
-from billistix.openstack.common import jsonutils
-from billistix.openstack.common.rpc import common as rpc_common
+from bufunfa.openstack.common import jsonutils
+from bufunfa.openstack.common.rpc import common as rpc_common
 
 CONSUMERS = {}
 

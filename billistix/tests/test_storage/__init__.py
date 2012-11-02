@@ -15,11 +15,11 @@
 # under the License.
 import copy
 from nose import SkipTest
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
-from billistix.tests import TestCase
-from billistix import storage
-from billistix import exceptions
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log as logging
+from bufunfa.tests import TestCase
+from bufunfa import storage
+from bufunfa import exceptions
 
 LOG = logging.getLogger(__name__)
 

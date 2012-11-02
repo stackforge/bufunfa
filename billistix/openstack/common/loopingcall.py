@@ -22,8 +22,8 @@ import sys
 from eventlet import event
 from eventlet import greenthread
 
-from billistix.openstack.common import log as logging
-from billistix.openstack.common.gettextutils import _
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common.gettextutils import _
 
 LOG = logging.getLogger(__name__)
 

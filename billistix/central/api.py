@@ -14,9 +14,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 # NOTE(zykes): Copied verbatim from Moniker
-from billistix.openstack.common import cfg
-from billistix.openstack.common import log as logging
-from billistix.openstack.common.rpc.proxy import RpcProxy
+from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common.rpc.proxy import RpcProxy
 
 DEFAULT_VERSION = "1.0"
 

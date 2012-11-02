@@ -17,8 +17,8 @@ from urlparse import urlparse
 
 from keystoneclient.v2_0 import client as ksclient
 
-from billistix.openstack.common import cfg
-from billistix.recorder.base import RecorderEngine
+from bufunfa.openstack.common import cfg
+from bufunfa.recorder.base import RecorderEngine
 
 
 class OpenstackEngine(RecorderEngine):
