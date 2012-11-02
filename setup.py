@@ -59,5 +59,15 @@ setup(
         sqlite = billistix.storage.impl_sqlalchemy:SQLAlchemyStorage
         [billistix.recorder]
         ceilometer = billistix.recorder.impl_ceilometer:RecordEngine
-        """)
+        """),
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Topic :: Finance :: Billing Service',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Environment :: No Input/Output (Daemon)',
+        'Environment :: OpenStack',
+    ]
 )
