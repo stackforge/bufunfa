@@ -1,6 +1,7 @@
-Billistix
+Bufunfa
 
-A Billing software in OpenStack / Cloud style.
+'Bufunfa' Brazilian / Portugese short for 'Money' is a ChargeBack / Billing
+software in OpenStack / Cloud style.
 
 Overview:
     Central:
@@ -16,3 +17,6 @@ Overview:
 
     API:
         Standard WSGI web services REST API.
+
+
+Docs: http://bufunfa.rtfd.org
