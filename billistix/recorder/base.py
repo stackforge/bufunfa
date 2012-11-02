@@ -15,12 +15,25 @@
 # under the License.
 import abc
 
+from billistix.openstack.common import cfg
+
+
+cfg.CONF.register_opt(
+    cfg.BoolOpt('record_audit_logging', default=False,
+                help='Logs individual records pr get_records()')
+)
+
+
+cfg.CONF.register_opt(
+    cfg.IntOpt('poll_age', default=86400,
+                help='How far back to pull data from the source service')
+)
+
 
 class RecorderEngine(object):
     """
     Base Record engine for getting Records from external systems
     """
-
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
