@@ -703,16 +703,24 @@ class Connection(object):
             except StopIteration:
                 return
 
+    def _consumer_thread_callback(self):
+        """ Consumer thread callback used by consume_in_* """
+        try:
+            self.consume()
+        except greenlet.GreenletExit:
+            return
+
     def consume_in_thread(self):
         """Consumer from all queues/consumers in a greenthread"""
-        def _consumer_thread():
-            try:
-                self.consume()
-            except greenlet.GreenletExit:
-                return
+
         if self.consumer_thread is None:
-            self.consumer_thread = eventlet.spawn(_consumer_thread)
+            self.consumer_thread = eventlet.spawn(
+                self._consumer_thread_callback)
         return self.consumer_thread
+
+    def consume_in_thread_group(self, thread_group):
+        """ Consume from all queues/consumers in the supplied ThreadGroup"""
+        thread_group.add_thread(self._consumer_thread_callback)
 
     def create_consumer(self, topic, proxy, fanout=False):
         """Create a consumer that calls a method in a proxy object"""
@@ -777,7 +785,7 @@ def cast_to_server(conf, context, server_params, topic, msg):
 
 def fanout_cast_to_server(conf, context, server_params, topic, msg):
     """Sends a message on a fanout exchange to a specific server."""
-    return rpc_amqp.cast_to_server(
+    return rpc_amqp.fanout_cast_to_server(
         conf, context, server_params, topic, msg,
         rpc_amqp.get_connection_pool(conf, Connection))
 
