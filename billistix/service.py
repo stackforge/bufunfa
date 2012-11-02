@@ -17,6 +17,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 from billistix.openstack.common import cfg
+from billistix.openstack.common import context
 from billistix.openstack.common.rpc import service as rpc_service
 
 
@@ -29,7 +30,7 @@ cfg.CONF.register_opts([
     cfg.IntOpt('periodic_interval',
                default=600,
                help='seconds between running periodic tasks')
-]
+])
 
 
 class PeriodicService(rpc_service.Service):

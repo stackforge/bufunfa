@@ -18,19 +18,11 @@ import os
 from billistix.openstack.common import cfg
 from billistix.openstack.common import log
 from billistix.openstack.common.context import get_admin_context
-from billistix.openstack.common.loopingcall import LoopingCall
-from billistix.openstack.common.rpc import service as rpc_service
+from billistix.service import PeriodicService
 from billistix.recorder import get_plugin
-from billistix.central import api
 
 
 LOG = log.getLogger(__name__)
-
-cfg.CONF.register_opts([
-    cfg.IntOpt('periodic_interval',
-               default=1,
-               help='seconds between running periodic tasks'),
-])
 
 CLI_OPTIONS = [
     cfg.StrOpt('os-username',
@@ -54,25 +46,14 @@ CLI_OPTIONS = [
 cfg.CONF.register_cli_opts(CLI_OPTIONS)
 
 
-class Service(rpc_service.Service):
+class Service(PeriodicService):
     def __init__(self, *args, **kw):
         kw.update(
             host=cfg.CONF.host,
             topic=cfg.CONF.worker_topic)
 
         super(Service, self).__init__(*args, **kw)
-
         self.plugin = get_plugin(cfg.CONF)
 
-        self.timers = []
-
-    def start(self):
-        task = LoopingCall(self.poll_records)
-        task.start(interval=cfg.CONF.periodic_interval,
-                   initial_delay=cfg.CONF.periodic_interval)
-        self.timers.append(task)
-        super(Service, self).start()
-
-    def poll_records(self):
-        context = get_admin_context()
+    def periodic_tasks(self, context, raise_on_error=False):
         records = self.plugin.get_records()
