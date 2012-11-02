@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!onsusr/bin/env python
 # Copyright 2012 Bouvet ASA
 #
 # Author: Endre Karlson <endre.karlson@bouvet.no>
@@ -18,6 +18,7 @@ from setuptools import setup, find_packages
 import textwrap
 
 from billistix.openstack.common import setup as common_setup
+from billistix.version import version_info as version
 
 install_requires = common_setup.parse_requirements(['tools/pip-requires'])
 tests_require = common_setup.parse_requirements(['tools/test-requires'])
@@ -28,11 +29,9 @@ dependency_links = common_setup.parse_dependency_links([
     'tools/setup-requires'
 ])
 
-version = '0.1'
-
 setup(
     name='billistix',
-    version=version,
+    version=version.canonical_version_string(always=True),
     description='Billing as a Service',
     author='Endre Karlson',
     author_email='endre.karlson@bouvet.no',
