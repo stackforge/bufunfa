@@ -29,8 +29,8 @@ cfg.CONF.register_opts([
     cfg.StrOpt('control-exchange', default='bufunfa',
                help='AMQP exchange to connect to if using RabbitMQ or Qpid'),
     cfg.StrOpt('central-topic',
-               default='billing_central',
+               default='bufunfa.central',
                help='Central Topic'),
-    cfg.StrOpt('worker-topic', default='billing_worker', help='Worker Topic'),
+    cfg.StrOpt('worker-topic', default='bufunfa.recorder', help='Worker Topic'),
     cfg.StrOpt('state-path', default='$pybasedir', help='State Path')
 ])
