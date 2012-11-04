@@ -17,9 +17,9 @@ import os
 
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
-from bufunfa.openstack.common.context import get_admin_context
 from bufunfa.service import PeriodicService
 from bufunfa.recorder import get_plugin
+from bufunfa.central import api as central_api
 
 
 LOG = log.getLogger(__name__)
@@ -57,3 +57,4 @@ class Service(PeriodicService):
 
     def periodic_tasks(self, context, raise_on_error=False):
         records = self.plugin.get_records()
+        central_api.process_records(context, records)

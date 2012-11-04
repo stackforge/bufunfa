@@ -71,7 +71,8 @@ class RecordEngine(OpenstackEngine):
             meters = [item.get('counter_name') for item in resource['meter']]
             for meter in meters:
                 record = self.get_record_between(
-                    resource, meter,
+                    resource,
+                    meter,
                     start_timestamp=start_timestamp,
                     end_timestamp=end_timestamp)
                 if record is not None:
@@ -98,6 +99,8 @@ class RecordEngine(OpenstackEngine):
             start_timestamp=start_timestamp, end_timestamp=end_timestamp
         )
 
+        volume = volume or duration_info.get('duration')
+
         # NOTE: Not sure on this but I think we can skip returning events that
         # don't have volume or duration
         if not volume and not duration_info.get('duration'):
@@ -105,6 +108,7 @@ class RecordEngine(OpenstackEngine):
 
         record = dict(
             resource_id=resource['resource_id'],
+            account_id=resource['project_id'],
             type=type_,
             volume=volume,
             extra=metadata,

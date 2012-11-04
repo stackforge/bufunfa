@@ -47,7 +47,7 @@ class RecorderEngine(object):
             "metadata": "{'test': 1}",
             "start_timestamp": "2012-10-31T08:29:29.574000",
             "end_timestamp": "2012-10-31T08:29:45.574000",
-            "customer_system_id": "c97027dd880d4c129ae7a4ba7edade05"
+            "system_account_id": "c97027dd880d4c129ae7a4ba7edade05"
         }
 
         resource_id: The ID of the resource that's billed
@@ -57,5 +57,5 @@ class RecorderEngine(object):
         metadata: JSON
         start_timestamp: Start of the pulling period
         end_timestamp: End of the pulling period
-        customer_system_id: The customer id in the external system
+        system_account_id: The account id in the external system
         """
