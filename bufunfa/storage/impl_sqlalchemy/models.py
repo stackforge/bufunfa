@@ -116,29 +116,29 @@ class Base(object):
 Base = declarative_base(cls=Base)
 
 
-class Customer(Base):
+class Account(Base):
     """
     A way to correlate multiple tenants or future Domains in OpenStack into
     a single aggregation point
     """
-    __tablename__ = 'customers'
+    __tablename__ = 'accounts'
     name = Column(Unicode(100), nullable=False)
 
 
-class CustomerSystem(Base):
+class SystemAccount(Base):
     """
-    A way of tying a "System's Customer" to a Billistix Customer
+    Bind a System's Account representation to a Account
 
     Examples:
-        OpenStack Domain or Tenant to a Customer
-        Credit card system ID
+        OpenStack Domain or Tenant to a Account
+        Credit card Account representation to a Account
     """
-    __tablename__ = "customer_systems"
+    __tablename__ = "system_accounts"
     system_id = Column(Unicode(100), index=True)
     system_name = Column(Unicode(100))
 
-    customer = relationship("Customer", backref="systems")
-    customer_id = Column(UUID, ForeignKey('customers.id'))
+    account = relationship("Account", backref="systems")
+    account_id = Column(UUID, ForeignKey('accounts.id'))
 
 
 class Record(Base):
@@ -151,9 +151,9 @@ class Record(Base):
     start_timestamp = Column(DateTime)
     end_timestamp = Column(DateTime)
 
-    customer_system = relationship("CustomerSystem", backref="records")
-    customer_system_id = Column(Unicode(100),
-                                ForeignKey('customer_systems.system_id'),
+    system_account = relationship("SystemAccount", backref="records")
+    system_account_id = Column(Unicode(100),
+                                ForeignKey('system_accounts.account_id'),
                                 nullable=False)
 
 

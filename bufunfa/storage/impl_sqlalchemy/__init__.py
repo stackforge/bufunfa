@@ -73,31 +73,69 @@ class Connection(base.Connection):
         else:
             return obj
 
+    def _add(self, context, model, values):
+        obj = model()
+        obj.update(values)
+        obj.save(self.session)
+        return obj
+
+    def _update(self, context, model, id, values):
+        obj = self._get_id(context, model, id)
+        obj.update(values)
+        try:
+            obj.save(self.session)
+        except exceptions.Duplicate:
+            raise
+        return dict(obj)
+
+    def _add_or_update(self, context, model, values, id=None):
+        if id is None:
+            return self._add(context, model, values)
+        else:
+            return self._update(context, model, values, id)
+
+    # NOTE: Rates
     def add_rate(self, context, values, session=None):
-        rate = models.Rate()
-        rate.update(values)
-        rate.save(self.session)
-        return rate
+        return self._add(context, models.Rate, values)
 
     def get_rates(self, context, session=None):
         query = self.session.query(models.Rate)
         return [row2dict(row) for row in query.all()]
 
     def update_rate(self, context, rate_id, values):
-        rate = self._get_id(context, models.Rate, rate_id)
-        rate.update(values)
-        try:
-            rate.save(self.session)
-        except exceptions.Duplicate:
-            raise
-        return dict(rate)
+        return self._update(context, models.Rate, rate_id, values)
 
     def delete_rate(self, context, rate_id):
-        rate = self._get_id(context, models.Rate, rate_id)
-        rate.delete(self.session)
+        obj = self._get_id(context, models.Rate, rate_id)
+        obj.delete(self.session)
 
-    def process_record(self, context, values):
-        print pformat(values)
+    # NOTE: Systems
+    def add_system(self, context, values, session=None):
+        return self._add(context, models.SystemAccount, values)
+
+    def get_systems(self, context, session=None):
+        query = self.session.query(models.SystemAccount)
+        return [row2dict(row) for row in query.all()]
+
+    def update_system(self, context, system_id, values):
+        return self._update(context, models.SystemAccount, system_id, values)
+
+    def delete_system(self, context, system_id):
+        obj = self._get_id(context, models.SystemAccount, system_id)
+        obj.delete(self.session)
+
+    # NOTE: Accounts
+    def get_system_by_account(self, context, system_id, session=None):
+        q = self.session.query(models.SystemAccount)
+        q.filter_by(system_id=system_id)
+        obj = q.first()
+        if not obj:
+            raise exceptions.NotFound(system_id)
+        return obj
+
+    # NOTE: Records
+    def add_record(self, context, values):
+        self._add(context, models.Record, values)
 
 
 def row2dict(row):
