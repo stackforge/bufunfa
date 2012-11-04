@@ -132,10 +132,16 @@ class SystemAccount(Base):
     Examples:
         OpenStack Domain or Tenant to a Account
         Credit card Account representation to a Account
+
+    id: The ID of the account in the System
+    name: The name of the system
+
+    account_id: The ID of the Account internally
     """
     __tablename__ = "system_accounts"
-    system_id = Column(Unicode(100), index=True)
-    system_name = Column(Unicode(100))
+
+    id = Column(Unicode(40), primary_key=True)
+    name = Column(Unicode(100))
 
     account = relationship("Account", backref="systems")
     account_id = Column(UUID, ForeignKey('accounts.id'))
@@ -151,9 +157,9 @@ class Record(Base):
     start_timestamp = Column(DateTime)
     end_timestamp = Column(DateTime)
 
-    system_account = relationship("SystemAccount", backref="records")
-    system_account_id = Column(Unicode(100),
-                                ForeignKey('system_accounts.account_id'),
+    account = relationship("SystemAccount", backref="records")
+    account_id = Column(Unicode(100),
+                                ForeignKey('system_accounts.id'),
                                 nullable=False)
 
 

@@ -109,29 +109,23 @@ class Connection(base.Connection):
         obj = self._get_id(context, models.Rate, rate_id)
         obj.delete(self.session)
 
-    # NOTE: Systems
-    def add_system(self, context, values, session=None):
+    # NOTE: System Accounts
+    def add_system_account(self, context, values, session=None):
         return self._add(context, models.SystemAccount, values)
 
-    def get_systems(self, context, session=None):
+    def get_system_account(self, context, account_id, session=None):
+        return self._get_id(context, models.SystemAccount, account_id)
+
+    def get_systems_account(self, context, session=None):
         query = self.session.query(models.SystemAccount)
         return [row2dict(row) for row in query.all()]
 
-    def update_system(self, context, system_id, values):
-        return self._update(context, models.SystemAccount, system_id, values)
+    def update_system_account(self, context, account_id, values):
+        return self._update(context, models.SystemAccount, account_id, values)
 
-    def delete_system(self, context, system_id):
-        obj = self._get_id(context, models.SystemAccount, system_id)
+    def delete_system_account(self, context, account_id):
+        obj = self._get_id(context, models.SystemAccount, account_id)
         obj.delete(self.session)
-
-    # NOTE: Accounts
-    def get_system_by_account(self, context, system_id, session=None):
-        q = self.session.query(models.SystemAccount)
-        q.filter_by(system_id=system_id)
-        obj = q.first()
-        if not obj:
-            raise exceptions.NotFound(system_id)
-        return obj
 
     # NOTE: Records
     def add_record(self, context, values):
