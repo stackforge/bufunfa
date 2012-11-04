@@ -24,8 +24,6 @@ from bufunfa.api import service as api_service
 
 eventlet.monkey_patch()
 
-prog, project = utils.get_name(__name__)
-
 config_files = cfg.find_config_files(project='bufunfa',
                                     prog='bufunfa-api')
 
