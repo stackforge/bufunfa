@@ -56,5 +56,6 @@ class Service(PeriodicService):
         self.plugin = get_plugin(cfg.CONF)
 
     def periodic_tasks(self, context, raise_on_error=False):
-        records = self.plugin.get_records()
-        central_api.process_records(context, records)
+        records = self.plugin.process_records()
+        if records and len(records) >= 1:
+            central_api.process_records(context, records)

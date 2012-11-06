@@ -37,9 +37,10 @@ class RecorderEngine(object):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def get_records(self):
+    def process_records(self):
         """
-        Return a list of billables in the format of
+        Process this recorder engines billable records in the below format
+        and pass them to central for storage
         {
             "resource_id": "0cc13414-905d-4563-b61a-e80702566fd5",
             "type": "instance",

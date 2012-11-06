@@ -20,7 +20,10 @@ import ceilometerclient
 
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
+from bufunfa.openstack.common.context import get_admin_context
+from bufunfa.central import api as central_api
 from bufunfa.recorder.openstack import OpenstackEngine
+
 
 LOG = log.getLogger(__name__)
 
@@ -33,12 +36,11 @@ class RecordEngine(OpenstackEngine):
         keystone_client = self.get_ksclient()
         return ceilometerclient.Client(keystone_client=keystone_client)
 
-    def get_records(self):
+    def process_records(self):
         """
         Get the records between a period of time
         """
-        records = []
-
+        # NOTE (zykes): Needs cleaning
         try:
             self.client = self.get_client()
             projects = self.client.get_projects()
@@ -53,9 +55,8 @@ class RecordEngine(OpenstackEngine):
                 continue
             project_records = self.get_project_records_between(project_id,
                 start_timestamp=poll_start)
-            for record in project_records:
-                records.append(record)
-        return records
+            admin_context = get_admin_context()
+            central_api.process_records(admin_context, project_records)
 
     def get_project_records_between(self, project_id, start_timestamp=None,
                                     end_timestamp=None):
