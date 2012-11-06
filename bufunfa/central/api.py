@@ -70,3 +70,13 @@ def process_record(context, values):
         }
     }
     return RPC.call(context, msg)
+
+
+def process_records(context, records):
+    msg = {
+        'method': 'process_records',
+        'args': {
+            'records': records
+        }
+    }
+    return RPC.call(context, msg)

@@ -18,7 +18,7 @@ import datetime
 import flask
 
 from bufunfa.openstack.common import log
-from bufunfa.central import api as capi
+from bufunfa.central import api as central_api
 
 LOG = log.getLogger(__name__)
 
@@ -30,12 +30,14 @@ def add_rate():
     context = flask.request.environ.get('context')
     values = flask.request.json
 
+    rate = central_api.add_rate(context, values)
+    return flask.jsonify(rate=rate)
+
 
 @blueprint.route('/rates', methods=['GET'])
 def get_rates():
     context = flask.request.environ.get('context')
-    print 'CONTEXT', context
-    rates = capi.get_rates(context)
+    rates = central_api.get_rates(context)
     return flask.jsonify(rates=rates)
 
 
@@ -44,14 +46,23 @@ def update_rate(rate_id):
     context = flask.request.environ.get('context')
     values = flask.request.json
 
-    domain = capi.update_rate(context, rate_id)
-    return flask.jsonify(domain)
+    rate = central_api.update_rate(context, rate_id, values)
+    return flask.jsonify(rate)
 
 
 @blueprint.route('/rates/<rate_id>', methods=['DELETE'])
 def delete_rate(rate_id):
     context = flask.request.environ.get('context')
-    capi.delete_rate(context, rate_id)
+    central_api.delete_rate(context, rate_id)
+
+
+@blueprint.route('/record', methods=['POST'])
+def process_record():
+    context = flask.request.environ.get('context')
+    values = flask.request.json
+
+    record = central_api.process_record(context, values)
+    return flask.jsonify(record)
 
 
 def factory(global_config, **local_conf):
