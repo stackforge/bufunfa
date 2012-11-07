@@ -56,6 +56,68 @@ def delete_rate(rate_id):
     central_api.delete_rate(context, rate_id)
 
 
+@blueprint.route('/accounts', methods=['POST'])
+def add_account():
+    context = flask.request.environ.get('context')
+    values = flask.request.json
+
+    account = central_api.add_account(context, values)
+    return flask.jsonify(account=account)
+
+
+@blueprint.route('/accounts', methods=['GET'])
+def get_accounts():
+    context = flask.request.environ.get('context')
+    accounts = central_api.get_accounts(context)
+    return flask.jsonify(accounts=accounts)
+
+
+@blueprint.route('/accounts/<account_id>', methods=['PUT'])
+def update_account(account_id):
+    context = flask.request.environ.get('context')
+    values = flask.request.json
+
+    account = central_api.update_account(context, account_id, values)
+    return flask.jsonify(account=account)
+
+
+@blueprint.route('/accounts/<account_id>', methods=['DELETE'])
+def delete_account(account_id):
+    context = flask.request.environ.get('context')
+    central_api.delete_account(context, account_id)
+
+
+@blueprint.route('/system_accounts', methods=['POST'])
+def add_system_account():
+    context = flask.request.environ.get('context')
+    values = flask.request.json
+
+    account = central_api.add_system_account(context, values)
+    return flask.jsonify(system_account=account)
+
+
+@blueprint.route('/system_accounts', methods=['GET'])
+def get_system_accounts():
+    context = flask.request.environ.get('context')
+    accounts = central_api.get_system_accounts(context)
+    return flask.jsonify(system_accounts=accounts)
+
+
+@blueprint.route('/system_accounts/<account_id>', methods=['PUT'])
+def update_system_account(account_id):
+    context = flask.request.environ.get('context')
+    values = flask.request.json
+
+    account = central_api.update_system_account(context, account_id, values)
+    return flask.jsonify(system_account=account)
+
+
+@blueprint.route('/system_accounts/<account_id>', methods=['DELETE'])
+def delete_system_account(account_id):
+    context = flask.request.environ.get('context')
+    central_api.delete_account(context, account_id)
+
+
 @blueprint.route('/record', methods=['POST'])
 def process_record():
     context = flask.request.environ.get('context')

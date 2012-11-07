@@ -62,7 +62,7 @@ class Connection(base.Connection):
         """ Semi-Private Method to reset the database schema """
         models.Base.metadata.drop_all(self.session.bind)
 
-    def _get_id(self, context, model, id):
+    def _get_id(self, model, context, id):
         """
         Helper to not write the same code x times
         """
@@ -73,14 +73,14 @@ class Connection(base.Connection):
         else:
             return obj
 
-    def _add(self, context, model, values):
+    def _add(self, model, context, values):
         obj = model()
         obj.update(values)
         obj.save(self.session)
         return obj
 
-    def _update(self, context, model, id, values):
-        obj = self._get_id(context, model, id)
+    def _update(self, model, context, id, values):
+        obj = self._get_id(model, context, id)
         obj.update(values)
         try:
             obj.save(self.session)
@@ -94,42 +94,60 @@ class Connection(base.Connection):
         else:
             return self._update(context, model, values, id)
 
-    # NOTE: Rates
-    def add_rate(self, context, values, session=None):
-        return self._add(context, models.Rate, values)
+    def add_rate(self, context, values):
+        return self._add(models.Rate, context, values)
 
-    def get_rates(self, context, session=None):
+    def get_rate(self, context, rate_id):
+        return self._get_id(models.Rate, context, rate_id)
+
+    def get_rates(self, context):
         query = self.session.query(models.Rate)
         return [row2dict(row) for row in query.all()]
 
     def update_rate(self, context, rate_id, values):
-        return self._update(context, models.Rate, rate_id, values)
+        return self._update(models.Rate, context, rate_id, values)
 
     def delete_rate(self, context, rate_id):
-        obj = self._get_id(context, models.Rate, rate_id)
+        obj = self._get_id(models.Rate, context, rate_id)
         obj.delete(self.session)
 
-    # NOTE: System Accounts
-    def add_system_account(self, context, values, session=None):
-        return self._add(context, models.SystemAccount, values)
+    def add_account(self, context, values):
+        return self._add(models.Account, context, values)
 
-    def get_system_account(self, context, account_id, session=None):
-        return self._get_id(context, models.SystemAccount, account_id)
+    def get_account(self, context, account_id):
+        return self._get_id(models.Account, context, account_id)
 
-    def get_systems_account(self, context, session=None):
+    def get_accounts(self, conetxt):
+        query = self.session.query(models.Account)
+        return [row2dict(row) for row in query.all()]
+
+    def update_account(self, context, account_id, values):
+        return self._update(models.Account, context, account_id, values)
+
+    def delete_account(self, context, account_id):
+        obj = self._get_id(models.Account, context, account_id)
+        obj.delete(self.session)
+
+    def add_system_account(self, context, values):
+        return self._add(models.SystemAccount, context, values)
+
+    def get_system_account(self, context, account_id):
+        return self._get_id(models.SystemAccount, context, account_id)
+
+    def get_system_accounts(self, context):
         query = self.session.query(models.SystemAccount)
         return [row2dict(row) for row in query.all()]
 
     def update_system_account(self, context, account_id, values):
-        return self._update(context, models.SystemAccount, account_id, values)
+        return self._update(models.SystemAccount, context, account_id, values)
 
     def delete_system_account(self, context, account_id):
-        obj = self._get_id(context, models.SystemAccount, account_id)
+        obj = self._get_id(models.SystemAccount, context, account_id)
         obj.delete(self.session)
 
     # NOTE: Records
     def add_record(self, context, values):
-        self._add(context, models.Record, values)
+        self._add(models.Record, context, values)
 
 
 def row2dict(row):

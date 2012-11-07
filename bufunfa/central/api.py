@@ -34,6 +34,16 @@ def add_rate(context, values):
     return RPC.call(context, msg)
 
 
+def get_rate(context, rate_id):
+    msg = {
+        "method": "get_rate",
+        "args": {
+            "rate_id": rate_id
+        }
+    }
+    return RPC.call(context, msg)
+
+
 def get_rates(context):
     msg = {
         "method": "get_rates",
@@ -57,6 +67,102 @@ def delete_rate(context, rate_id):
         "method": "delete_rate",
         "args": {
             "rate_id": rate_id
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def add_account(context, values):
+    msg = {
+        "method": "add_account",
+        "args": {
+            "values": values
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def get_account(context, account_id):
+    msg = {
+        "method": "get_account",
+        "args": {
+            "account_id": account_id
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def get_accounts(context):
+    msg = {
+        "method": "get_accounts",
+    }
+    return RPC.call(context, msg)
+
+
+def update_account(context, account_id, values):
+    msg = {
+        "method": "update_account",
+        "args": {
+            "account_id": account_id,
+            "values": values
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def delete_account(context, rate_id):
+    msg = {
+        "method": "delete_account",
+        "args": {
+            "account_id": account_id
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def add_system_account(context, values):
+    msg = {
+        "method": "add_system_account",
+        "args": {
+            "values": values
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def get_system_account(context, account_id):
+    msg = {
+        "method": "get_system_account",
+        "args": {
+            "account_id": account_id
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def get_system_accounts(context):
+    msg = {
+        "method": "get_system_accounts",
+    }
+    return RPC.call(context, msg)
+
+
+def update_system_account(context, account_id, values):
+    msg = {
+        "method": "update_system_account",
+        "args": {
+            "account_id": account_id,
+            "values": values
+        }
+    }
+    return RPC.call(context, msg)
+
+
+def delete_system_account(context, account_id):
+    msg = {
+        "method": "delete_system_account",
+        "args": {
+            "account_id": account_id
         }
     }
     return RPC.call(context, msg)
