@@ -74,6 +74,7 @@ class RecordEngine(OpenstackEngine):
             account = central_api.get_system_account(self.admin_context, project_id)
         except RemoteError:
             return
+        # NOTE: The time sent over RPC is text.
         polled_at = timeutils.parse_strtime(account['polled_at'])
         return polled_at
 

@@ -15,6 +15,7 @@
 # under the License.
 from datetime import datetime, timedelta
 from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common import timeutils
 from bufunfa.tests.test_central import CentralTestCase
 from bufunfa import exceptions
 
@@ -89,7 +90,7 @@ class ServiceTest(CentralTestCase):
         """
         account_id = str(self.add_system_account()['id'])
         now = datetime.now()
-        self.service.set_polled_at(self.admin_context, account_id, now)
+        self.service.set_polled_at(self.admin_context, account_id, timeutils.strtime(now))
 
         account = self.service.get_system_account(self.admin_context, account_id)
         self.assertEquals(account["polled_at"], now)
@@ -102,9 +103,9 @@ class ServiceTest(CentralTestCase):
         account_id = str(self.add_system_account()['id'])
         now = datetime.now()
         self.service.set_polled_at(
-            self.admin_context, account_id, now)
+            self.admin_context, account_id, timeutils.strtime(now))
 
         with self.assertRaises(exceptions.TooOld):
             self.service.set_polled_at(
                 self.admin_context, account_id,
-                now - timedelta(1))
+                timeutils.strtime(now - timedelta(1)))
