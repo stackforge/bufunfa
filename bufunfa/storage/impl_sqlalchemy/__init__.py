@@ -62,14 +62,14 @@ class Connection(base.Connection):
         """ Semi-Private Method to reset the database schema """
         models.Base.metadata.drop_all(self.session.bind)
 
-    def _get_id(self, model, context, id):
+    def _get_id(self, model, context, id_):
         """
         Helper to not write the same code x times
         """
         query = self.session.query(model)
-        obj = query.get(id)
+        obj = query.get(id_)
         if not obj:
-            raise exceptions.NotFound(id)
+            raise exceptions.NotFound(id_)
         else:
             return obj
 

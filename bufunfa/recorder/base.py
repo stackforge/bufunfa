@@ -16,6 +16,7 @@
 import abc
 
 from bufunfa.openstack.common import cfg
+from bufunfa.openstack.common.context import get_admin_context
 
 
 cfg.CONF.register_opt(
@@ -30,7 +31,7 @@ cfg.CONF.register_opt(
 )
 
 
-class RecorderEngine(object):
+class BaseEngine(object):
     """
     Base Record engine for getting Records from external systems
     """
@@ -60,3 +61,8 @@ class RecorderEngine(object):
         end_timestamp: End of the pulling period
         system_account_id: The account id in the external system
         """
+
+
+class RecorderEngine(BaseEngine):
+    def __init__(self):
+        self.admin_context = get_admin_context()

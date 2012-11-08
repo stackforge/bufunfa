@@ -142,6 +142,7 @@ class SystemAccount(Base):
 
     id = Column(Unicode(40), primary_key=True)
     name = Column(Unicode(100))
+    polled_at = Column(DateTime)
 
     account = relationship("Account", backref="systems")
     account_id = Column(UUID, ForeignKey('accounts.id'))

@@ -16,6 +16,7 @@
 # NOTE(zykes): Copied verbatim from Moniker
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
+from bufunfa.openstack.common import timeutils
 from bufunfa.openstack.common.rpc import service as rpc_service
 from bufunfa import exceptions
 from bufunfa import storage
@@ -80,14 +81,42 @@ class Service(rpc_service.Service):
     def delete_system_account(self, context, account_id):
         return self.storage_conn.delete_rate(context, account_id)
 
+    def set_polled_at(self, context, account_id, time):
+        """
+        Set when the account was last polled in the system
+
+        :param context: RPC context
+        :param account_id: The Account ID in the System
+        :param time_stamp: Timestamp of when it was polled
+        """
+        time = timeutils.parse_strtime(time)
+
+        account = self.storage_conn.get_system_account(context, account_id)
+        polled_at = account['polled_at']
+
+        if polled_at and time < polled_at:
+            raise exceptions.TooOld("Timestamp is older then the last poll")
+
+        return self.storage_conn.update_system_account(context, account_id,
+            {'polled_at': time})
+
     def process_records(self, context, records):
         """
         Process records in a batch
+
+        :param context: RPC context
+        :param records: A list of records
         """
         for record in records:
             self.process_record(context, record)
 
     def process_record(self, context, values):
+        """
+        Process a Record
+
+        :param context: RPC context
+        :param values: Values for the record
+        """
         # NOTE: Add the system if it doesn't exist..
         try:
             self.storage_conn.get_system_account(

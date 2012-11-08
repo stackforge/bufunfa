@@ -41,3 +41,7 @@ class Duplicate(Base):
 
 class NotFound(Base):
     pass
+
+
+class TooOld(Base):
+    pass

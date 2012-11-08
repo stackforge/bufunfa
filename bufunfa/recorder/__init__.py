@@ -14,7 +14,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 from stevedore import driver
-from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
 
 LOG = log.getLogger(__name__)

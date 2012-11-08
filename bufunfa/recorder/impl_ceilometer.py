@@ -20,7 +20,9 @@ import ceilometerclient
 
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
-from bufunfa.openstack.common.context import get_admin_context
+from bufunfa.openstack.common import timeutils
+from bufunfa.openstack.common.rpc.common import RemoteError
+from bufunfa import exceptions
 from bufunfa.central import api as central_api
 from bufunfa.recorder.openstack import OpenstackEngine
 
@@ -48,15 +50,32 @@ class RecordEngine(OpenstackEngine):
             LOG.exception(e)
             return
 
-        poll_start = datetime.now() - timedelta(seconds=cfg.CONF.poll_age)
-
         for project_id in projects:
             if project_id is None:
                 continue
+
+            started = datetime.now()
+
+            start_timestamp = self.get_poll_start(project_id)
+
             project_records = self.get_project_records_between(project_id,
-                start_timestamp=poll_start)
-            admin_context = get_admin_context()
-            central_api.process_records(admin_context, project_records)
+                start_timestamp=start_timestamp)
+            central_api.process_records(self.admin_context, project_records)
+
+            central_api.set_polled_at(self.admin_context, project_id, started)
+
+    def get_poll_start(self, project_id):
+        """
+        Get poll start time
+
+        :param project_id: The project ID
+        """
+        try:
+            account = central_api.get_system_account(self.admin_context, project_id)
+        except RemoteError:
+            return
+        polled_at = timeutils.parse_strtime(account['polled_at'])
+        return polled_at
 
     def get_project_records_between(self, project_id, start_timestamp=None,
                                     end_timestamp=None):
@@ -99,6 +118,10 @@ class RecordEngine(OpenstackEngine):
             resource_id=resource['resource_id'], meter=meter,
             start_timestamp=start_timestamp, end_timestamp=end_timestamp
         )
+
+        #if not duration_info['start_timestamp'] and \
+                #        not duration_info['end_timestamp']:
+            #return
 
         volume = volume or duration_info.get('duration')
 

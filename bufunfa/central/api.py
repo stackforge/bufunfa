@@ -168,6 +168,17 @@ def delete_system_account(context, account_id):
     return RPC.call(context, msg)
 
 
+def set_polled_at(context, account_id, time):
+    msg = {
+        "method": "set_polled_at",
+        "args": {
+            "account_id": account_id,
+            "time": time
+        }
+    }
+    return RPC.call(context, msg)
+
+
 def process_record(context, values):
     msg = {
         "method": "process_record",

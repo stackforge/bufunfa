@@ -14,7 +14,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 from datetime import datetime, timedelta
-import random
 from bufunfa.openstack.common import log as logging
 from bufunfa.tests.test_central import CentralTestCase
 from bufunfa import exceptions
@@ -34,16 +33,78 @@ class ServiceTest(CentralTestCase):
         'account_id': 'c97027dd880d4c129ae7a4ba7edade05'
     }
 
+    rates = [
+        {'name': 'cpu', 'value': 1},
+        {'name': 'memory', 'value': 2}
+    ]
+
+    accounts = [
+        {'name': 'customer_a'}
+    ]
+
+    system_accounts = [
+        {'name': 'system_a', 'id': 'd44f1779-5034-455e-b334-cac2ac3eee33'},
+        {'name': 'system_b', 'id': 'a45e43af-090b-4045-ae78-6a9d507d1418'}
+    ]
+
     def setUp(self):
         super(ServiceTest, self).setUp()
         self.config(rpc_backend='bufunfa.openstack.common.rpc.impl_fake')
         self.service = self.get_central_service()
         self.admin_context = self.get_admin_context()
 
+    def add_rate(self, fixture=0, context=None, values={}):
+        context = context or self.get_admin_context()
+        values = self.rates[fixture]
+        values.update(values)
+        return self.service.add_rate(context, values)
+
+    def add_account(self, fixture=0, context=None, values={}):
+        context = context or self.get_admin_context()
+        values = self.accounts[fixture]
+        values.update(values)
+        return self.service.add_account(context, values)
+
+    def add_system_account(self, fixture=0, context=None, values={}):
+        context = context or self.get_admin_context()
+        values = self.system_accounts[fixture]
+        values.update(values)
+        return self.service.add_system_account(context, values)
+
     def test_process_record_unexisting_system(self):
+        """
+        If the system we we're receiving a record from doesn't have a system
+        account entry we'll create one
+        """
         self.service.process_record(
             self.admin_context, self.record)
 
         system = self.service.storage_conn.get_system_account(
             self.admin_context, self.record['account_id'])
         self.assertEquals(system.id, self.record['account_id'])
+
+    def test_set_polled_at(self):
+        """
+        Set the last time the SystemAccount was polled
+        """
+        account_id = str(self.add_system_account()['id'])
+        now = datetime.now()
+        self.service.set_polled_at(self.admin_context, account_id, now)
+
+        account = self.service.get_system_account(self.admin_context, account_id)
+        self.assertEquals(account["polled_at"], now)
+
+    def test_set_polled_at_too_old(self):
+        """
+        Shouldn't be allowed to set polled_at older then the current one in
+        SystemAccount
+        """
+        account_id = str(self.add_system_account()['id'])
+        now = datetime.now()
+        self.service.set_polled_at(
+            self.admin_context, account_id, now)
+
+        with self.assertRaises(exceptions.TooOld):
+            self.service.set_polled_at(
+                self.admin_context, account_id,
+                now - timedelta(1))
