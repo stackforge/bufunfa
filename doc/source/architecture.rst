@@ -41,9 +41,11 @@ Brief overview
 Service layout
 ++++++++++++++
 Below you can see a picture of how Bufunfa's services work.
-.. image:: ./services.png
+
+.. image:: services.png
 
 Storage layout
 ++++++++++++++
 Below you can see a picture of how Bufunfa's storage is layed out.
-.. image:: ./storage_layout.png
+
+.. image:: storage_layout.png
