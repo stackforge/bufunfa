@@ -37,3 +37,13 @@ Brief overview
     :term:`api` standard OpenStack alike REST api service that communicates via
     :term:`mq` to :term:`central` in order to do actions like adding
     records and so on.
+
+Service layout
+++++++++++++++
+Below you can see a picture of how Bufunfa's services work.
+.. image:: ./services.png
+
+Storage layout
+++++++++++++++
+Below you can see a picture of how Bufunfa's storage is layed out.
+.. image:: ./storage_layout.png
