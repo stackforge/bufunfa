@@ -17,4 +17,3 @@ from bufunfa.openstack.common import version as common_version
 
 PRE_VERSION = '2013.1'
 version_info = common_version.VersionInfo('bufunfa', pre_version=PRE_VERSION)
-

@@ -27,7 +27,7 @@ cfg.CONF.register_opt(
 
 cfg.CONF.register_opt(
     cfg.IntOpt('poll_age', default=86400,
-                help='How far back to pull data from the source service')
+               help='How far back to pull data from the source service')
 )
 
 

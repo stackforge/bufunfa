@@ -90,9 +90,11 @@ class ServiceTest(CentralTestCase):
         """
         account_id = str(self.add_system_account()['id'])
         now = datetime.now()
-        self.service.set_polled_at(self.admin_context, account_id, timeutils.strtime(now))
+        self.service.set_polled_at(self.admin_context, account_id,
+                                   timeutils.strtime(now))
 
-        account = self.service.get_system_account(self.admin_context, account_id)
+        account = self.service.get_system_account(self.admin_context,
+                                                  account_id)
         self.assertEquals(account["polled_at"], now)
 
     def test_set_polled_at_too_old(self):

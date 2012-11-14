@@ -160,8 +160,8 @@ class Record(Base):
 
     account = relationship("SystemAccount", backref="records")
     account_id = Column(Unicode(100),
-                                ForeignKey('system_accounts.id'),
-                                nullable=False)
+                        ForeignKey('system_accounts.id'),
+                        nullable=False)
 
 
 class Rate(Base):

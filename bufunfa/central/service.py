@@ -98,7 +98,7 @@ class Service(rpc_service.Service):
             raise exceptions.TooOld("Timestamp is older then the last poll")
 
         return self.storage_conn.update_system_account(context, account_id,
-            {'polled_at': time})
+                                                       {'polled_at': time})
 
     def process_records(self, context, records):
         """

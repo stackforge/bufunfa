@@ -58,7 +58,8 @@ class RecordEngine(OpenstackEngine):
 
             start_timestamp = self.get_poll_start(project_id)
 
-            project_records = self.get_project_records_between(project_id,
+            project_records = self.get_project_records_between(
+                project_id,
                 start_timestamp=start_timestamp)
             central_api.process_records(self.admin_context, project_records)
 
@@ -71,7 +72,9 @@ class RecordEngine(OpenstackEngine):
         :param project_id: The project ID
         """
         try:
-            account = central_api.get_system_account(self.admin_context, project_id)
+            account = central_api.get_system_account(
+                self.admin_context,
+                project_id)
         except RemoteError:
             return
         # NOTE: The time sent over RPC is text.

@@ -31,6 +31,7 @@ cfg.CONF.register_opts([
     cfg.StrOpt('central-topic',
                default='bufunfa.central',
                help='Central Topic'),
-    cfg.StrOpt('worker-topic', default='bufunfa.recorder', help='Worker Topic'),
+    cfg.StrOpt('worker-topic', default='bufunfa.recorder',
+               help='Worker Topic'),
     cfg.StrOpt('state-path', default='$pybasedir', help='State Path')
 ])

@@ -122,13 +122,15 @@ class StorageDriverTestCase(StorageTestCase):
 
     def test_add_system_account(self):
         account = self.add_system_account_fixture()
-        self.assertEquals(account.name, self.system_account_fixtures[0]['name'])
+        self.assertEquals(account.name,
+                          self.system_account_fixtures[0]['name'])
 
     def test_delete_system_account(self):
         account = self.add_system_account_fixture()
         self.storage_conn.delete_system_account(self.admin_context, account.id)
         with self.assertRaises(exceptions.NotFound):
-            self.storage_conn.get_system_account(self.admin_context, account.id)
+            self.storage_conn.get_system_account(self.admin_context,
+                                                 account.id)
 
     def test_update_system_account(self):
         account = self.add_system_account_fixture()

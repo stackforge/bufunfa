@@ -25,4 +25,3 @@ class TestEngineName(TestCase):
     def test_engine_dialacted(self):
         name = get_engine_name("mysql+oursql")
         self.assertEqual(name, "mysql")
-
