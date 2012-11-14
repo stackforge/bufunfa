@@ -26,6 +26,7 @@ tests_require = common_setup.parse_requirements(['tools/test-requires'])
 setup_require = common_setup.parse_requirements(['tools/setup-requires'])
 dependency_links = common_setup.parse_dependency_links([
     'tools/pip-requires',
+    'tools/pip-options',
     'tools/test-requires',
     'tools/setup-requires'
 ])
