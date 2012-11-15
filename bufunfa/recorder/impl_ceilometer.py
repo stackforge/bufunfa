@@ -31,6 +31,8 @@ LOG = log.getLogger(__name__)
 
 
 class RecordEngine(OpenstackEngine):
+    __plugin_name__ = 'ceilometer'
+
     def get_client(self):
         """
         Get a ceilometerclient
@@ -144,7 +146,7 @@ class RecordEngine(OpenstackEngine):
             end_timestamp=duration_info.get('end_timestamp'),
             duration=duration_info.get('duration')
         )
-        if cfg.CONF.record_audit_logging:
+        if self.config.record_audit_logging:
             LOG.debug("Record: %s", record)
         return record
 

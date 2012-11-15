@@ -18,10 +18,10 @@ from urlparse import urlparse
 from keystoneclient.v2_0 import client as ksclient
 
 from bufunfa.openstack.common import cfg
-from bufunfa.recorder.base import RecorderEngine
+from bufunfa.recorder.base import RecordEngine
 
 
-class OpenstackEngine(RecorderEngine):
+class OpenstackEngine(RecordEngine):
     def get_ksclient(self):
         """
         Get a keystone client

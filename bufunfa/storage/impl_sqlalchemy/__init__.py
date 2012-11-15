@@ -17,21 +17,43 @@
 import copy
 
 from bufunfa import exceptions
+from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
 from bufunfa.storage import base
 from bufunfa.storage.impl_sqlalchemy import models
 from bufunfa.storage.impl_sqlalchemy.session import get_session
 
-from pprint import pformat
 
 LOG = log.getLogger(__name__)
 
+SQL_OPTS = [
+    cfg.IntOpt('connection_debug', default=50,
+               help='Verbosity of SQL debugging information. 0=None,'
+               ' 100=Everything'),
+    cfg.BoolOpt('connection_trace', default=False,
+                help='Add python stack traces to SQL as comment strings'),
+    cfg.BoolOpt('sqlite_synchronous', default=True,
+                help='If passed, use synchronous mode for sqlite'),
+    cfg.IntOpt('idle_timeout', default=3600,
+               help='timeout before idle sql connections are reaped'),
+    cfg.IntOpt('max_retries', default=10,
+               help='maximum db connection retries during startup. '
+               '(setting -1 implies an infinite retry count)'),
+    cfg.IntOpt('retry_interval', default=10,
+               help='interval between retries of opening a sql connection')
+]
+
 
 class SQLAlchemyStorage(base.StorageEngine):
+    __plugin_name__ = 'sqlalchemy'
+
     OPTIONS = []
 
-    def register_opts(self, conf):
-        conf.register_opts(self.OPTIONS)
+    @classmethod
+    def get_opts(cls):
+        opts = super(SQLAlchemyStorage, cls).get_opts()
+        opts.extend(cls.OPTIONS + SQL_OPTS)
+        return opts
 
     def get_connection(self, conf):
         return Connection(conf)

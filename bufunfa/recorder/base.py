@@ -17,25 +17,26 @@ import abc
 
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common.context import get_admin_context
+from bufunfa.plugin import Plugin
 
 
-cfg.CONF.register_opt(
-    cfg.BoolOpt('record_audit_logging', default=False,
-                help='Logs individual records pr get_records()')
-)
-
-
-cfg.CONF.register_opt(
-    cfg.IntOpt('poll_age', default=86400,
-               help='How far back to pull data from the source service')
-)
-
-
-class BaseEngine(object):
+class RecordEngine(Plugin):
     """
     Base Record engine for getting Records from external systems
     """
-    __metaclass__ = abc.ABCMeta
+    __plugin_type__ = 'recorder'
+
+    def __init__(self):
+        super(RecordEngine, self).__init__()
+        self.admin_context = get_admin_context()
+
+    @classmethod
+    def get_opts(cls):
+        return [
+            cfg.IntOpt('poll_age', default=86400,
+                       help='How far back to pull data from the source service'),
+            cfg.BoolOpt('record_audit_logging', default=False,
+                        help='Logs individual records pr get_records()')]
 
     @abc.abstractmethod
     def process_records(self):
@@ -61,8 +62,3 @@ class BaseEngine(object):
         end_timestamp: End of the pulling period
         system_account_id: The account id in the external system
         """
-
-
-class RecorderEngine(BaseEngine):
-    def __init__(self):
-        self.admin_context = get_admin_context()

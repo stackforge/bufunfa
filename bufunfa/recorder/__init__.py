@@ -24,5 +24,6 @@ DRIVER_NAMESPACE = "bufunfa.recorder"
 def get_plugin(conf):
     name = "ceilometer"
     LOG.debug("Looking for driver %s in %s", name, DRIVER_NAMESPACE)
-    mgr = driver.DriverManager(DRIVER_NAMESPACE, name, invoke_on_load=True)
-    return mgr.driver
+    mgr = driver.DriverManager(DRIVER_NAMESPACE, name, invoke_on_load=False)
+    mgr.driver.register_opts(conf)
+    return mgr.driver()
