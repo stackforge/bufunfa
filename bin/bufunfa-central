@@ -16,7 +16,7 @@ if os.path.exists('./etc/bufunfa-central.conf'):
     config_files.append('./etc/bufunfa-central.conf')
 
 cfg.CONF(sys.argv[1:], project="bufunfa", prog="bufunfa-central",
-        default_config_files=config_files)
+         default_config_files=config_files)
 
 log.setup("bufunfa")
 

@@ -16,9 +16,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 # NOTE(zykes): Copied UUID from Moniker
-from sqlalchemy.types import TypeDecorator, CHAR, VARCHAR, Text
+from sqlalchemy.types import TypeDecorator, CHAR, Text
 from sqlalchemy.dialects.postgresql import UUID as pgUUID
-import simplejson as json
+from bufunfa.openstack.common import jsonutils as json
 import uuid
 
 

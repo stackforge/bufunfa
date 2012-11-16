@@ -15,6 +15,7 @@
 # under the License.
 from bufunfa.central import service as central_service
 from bufunfa.tests import TestCase
+from bufunfa.api import service as api_service
 
 
 class CentralTestCase(TestCase):
@@ -22,3 +23,6 @@ class CentralTestCase(TestCase):
 
     def get_central_service(self):
         return central_service.Service()
+
+    def get_api_service(self):
+        return api_service.Service()

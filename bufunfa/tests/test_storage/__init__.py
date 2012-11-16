@@ -14,7 +14,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 import copy
-from nose import SkipTest
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log as logging
 from bufunfa.tests import TestCase

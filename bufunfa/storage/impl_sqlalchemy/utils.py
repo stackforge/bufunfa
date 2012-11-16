@@ -23,6 +23,7 @@
 import sqlalchemy
 
 from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common.gettextutils import _
 from bufunfa import exceptions
 
 

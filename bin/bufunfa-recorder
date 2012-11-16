@@ -25,13 +25,14 @@ from bufunfa.recorder.service import Service
 
 eventlet.monkey_patch()
 
-config_files = cfg.find_config_files(project="bufunfa", prog="bufunfa-recorder-sync")
+config_files = cfg.find_config_files(project="bufunfa",
+                                     prog="bufunfa-recorder-sync")
 
 if os.path.exists('./etc/bufunfa-recorder.conf'):
     config_files.append('./etc/bufunfa-recorder.conf')
 
 cfg.CONF(sys.argv[1:], project="bufunfa", prog="bufunfa-recorder-sync",
-        default_config_files=config_files)
+         default_config_files=config_files)
 
 log.setup('bufunfa')
 

@@ -25,13 +25,13 @@ from bufunfa.api import service as api_service
 eventlet.monkey_patch()
 
 config_files = cfg.find_config_files(project='bufunfa',
-                                    prog='bufunfa-api')
+                                     prog='bufunfa-api')
 
 if os.path.exists('./etc/bufunfa-api.conf'):
     config_files.append('./etc/bufunfa-api.conf')
 
 cfg.CONF(sys.argv[1:], project='bufunfa', prog='bufunfa-api',
-        default_config_files=config_files)
+         default_config_files=config_files)
 
 logging.setup('bufunfa')
 

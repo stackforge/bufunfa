@@ -50,7 +50,6 @@ class ServiceTest(CentralTestCase):
 
     def setUp(self):
         super(ServiceTest, self).setUp()
-        self.config(rpc_backend='bufunfa.openstack.common.rpc.impl_fake')
         self.service = self.get_central_service()
         self.admin_context = self.get_admin_context()
 

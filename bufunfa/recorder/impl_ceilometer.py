@@ -14,15 +14,13 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 # NOTE(zykes): Copied verbatim from ceilometerclient
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import ceilometerclient
 
-from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
 from bufunfa.openstack.common import timeutils
 from bufunfa.openstack.common.rpc.common import RemoteError
-from bufunfa import exceptions
 from bufunfa.central import api as central_api
 from bufunfa.recorder.openstack import OpenstackEngine
 

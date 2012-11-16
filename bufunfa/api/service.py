@@ -21,6 +21,9 @@ from bufunfa.openstack.common import cfg
 from bufunfa import utils
 
 
+LOG = logging.getLogger(__name__)
+
+
 class Service(wsgi.Service):
     def __init__(self, backlog=128, threads=1000):
         super(Service, self).__init__(threads)
@@ -29,8 +32,7 @@ class Service(wsgi.Service):
         self.port = cfg.CONF.api_port
         self.backlog = backlog
 
-        config_path = cfg.CONF.api_paste_config
-        config_path = utils.find_config(config_path)
+        config_path = utils.find_config(cfg.CONF.api_paste_config)
 
         self.application = deploy.loadapp("config:%s" % config_path,
                                           name='osapi_billing')

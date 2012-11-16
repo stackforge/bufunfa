@@ -34,7 +34,7 @@ class RecordEngine(Plugin):
     def get_opts(cls):
         return [
             cfg.IntOpt('poll_age', default=86400,
-                       help='How far back to pull data from the source service'),
+                       help='How far back to pull data from'),
             cfg.BoolOpt('record_audit_logging', default=False,
                         help='Logs individual records pr get_records()')]
 

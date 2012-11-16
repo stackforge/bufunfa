@@ -17,7 +17,6 @@
 import flask
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import jsonutils
-from bufunfa.api.v1 import blueprint as bp_v1
 
 
 # Replace the json module used by flask with the one from

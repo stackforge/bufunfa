@@ -20,7 +20,6 @@ from bufunfa.openstack.common import timeutils
 from bufunfa.openstack.common.rpc import service as rpc_service
 from bufunfa import exceptions
 from bufunfa import storage
-from bufunfa import utils
 
 
 LOG = log.getLogger(__name__)

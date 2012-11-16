@@ -110,7 +110,7 @@ def update_account(context, account_id, values):
     return RPC.call(context, msg)
 
 
-def delete_account(context, rate_id):
+def delete_account(context, account_id):
     msg = {
         "method": "delete_account",
         "args": {

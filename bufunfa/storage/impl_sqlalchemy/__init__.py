@@ -47,12 +47,10 @@ SQL_OPTS = [
 class SQLAlchemyStorage(base.StorageEngine):
     __plugin_name__ = 'sqlalchemy'
 
-    OPTIONS = []
-
     @classmethod
     def get_opts(cls):
         opts = super(SQLAlchemyStorage, cls).get_opts()
-        opts.extend(cls.OPTIONS + SQL_OPTS)
+        opts.extend(SQL_OPTS)
         return opts
 
     def get_connection(self, conf):

@@ -14,21 +14,18 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 # NOTE(zykes): Copied verbatim from Moniker
-import copy
 from uuid import uuid4
 from urlparse import urlparse
 
-from sqlalchemy import Column, DateTime, Unicode, Float, Integer, ForeignKey
+from sqlalchemy import Column, DateTime, Unicode, Float, ForeignKey
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import relationship, backref, object_mapper
+from sqlalchemy.orm import relationship, object_mapper
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.hybrid import hybrid_property
 
 from bufunfa import exceptions
 import bufunfa.openstack.common.cfg as cfg
 from bufunfa.openstack.common import log
 from bufunfa.openstack.common import timeutils
-from bufunfa.storage.impl_sqlalchemy.session import get_session
 from bufunfa.storage.impl_sqlalchemy.types import JSONBlob, UUID
 
 LOG = log.getLogger(__name__)
