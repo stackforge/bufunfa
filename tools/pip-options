@@ -3,4 +3,7 @@ SQLAlchemy>=0.7.8,<=0.7.9
 kombu
 
 # Needed for Keystone Middleware
-https://launchpad.net/keystone/folsom/2012.2/+download/keystone-2012.2.tar.gz#egg=keystone
+python-keystoneclient>=0.2.0
+
+# Recorder - Ceilometer
+http://github.com/dreamhost/ceilometerclient/archive/master.zip#egg=ceilometerclient
