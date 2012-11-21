@@ -91,7 +91,12 @@ class RecordEngine(OpenstackEngine):
         :param end_timestamp: End timestamp
         """
         records = []
-        for resource in self.client.get_resources(project_id=project_id):
+        resources = self.client.get_resources(
+            project_id,
+            start_timestamp=start_timestamp,
+            end_timestamp=end_timestamp)
+
+        for resource in resources:
             meters = [item.get('counter_name') for item in resource['meter']]
             for meter in meters:
                 record = self.get_record_between(
