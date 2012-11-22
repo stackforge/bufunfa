@@ -23,6 +23,7 @@ class StorageEngine(Plugin):
     Base class for storage engines
     """
 
+    __plugin_ns__ = 'bufunfa.storage'
     __plugin_type__ = 'storage'
 
     @abc.abstractmethod

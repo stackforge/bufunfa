@@ -17,13 +17,11 @@
 # under the License.
 # NOTE(zykes): Copied from Ceilometer
 from urlparse import urlparse
-from stevedore import driver
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
+from bufunfa.storage.base import StorageEngine
 
 LOG = log.getLogger(__name__)
-
-DRIVER_NAMESPACE = 'bufunfa.storage'
 
 cfg.CONF.register_opts([
     cfg.StrOpt('database_connection',
@@ -42,13 +40,8 @@ def get_engine_name(string):
 def get_engine(conf):
     scheme = urlparse(conf.database_connection).scheme
     engine_name = get_engine_name(scheme)
-    LOG.debug('looking for %r engine in %r', engine_name, DRIVER_NAMESPACE)
-    mgr = driver.DriverManager(
-        DRIVER_NAMESPACE,
-        engine_name,
-        invoke_on_load=False)
-    mgr.driver.register_opts(conf)
-    return mgr.driver()
+    return StorageEngine.get_plugin(
+        engine_name, conf=conf, invoke_on_load=True)
 
 
 def get_connection(conf):
