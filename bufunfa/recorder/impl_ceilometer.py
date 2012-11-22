@@ -18,6 +18,7 @@ from datetime import datetime
 
 import ceilometerclient
 
+from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
 from bufunfa.openstack.common import timeutils
 from bufunfa.openstack.common.rpc.common import RemoteError
@@ -90,12 +91,15 @@ class RecordEngine(OpenstackEngine):
         :param start_timestamp: Start timestamp
         :param end_timestamp: End timestamp
         """
-        records = []
+
+        offset = cfg.CONF[self.name].poll_interval / 60 + 1
         resources = self.client.get_resources(
             project_id,
             start_timestamp=start_timestamp,
-            end_timestamp=end_timestamp)
+            end_timestamp=end_timestamp,
+            search_offset=offset)
 
+        records = []
         for resource in resources:
             meters = [item.get('counter_name') for item in resource['meter']]
             for meter in meters:
@@ -113,6 +117,8 @@ class RecordEngine(OpenstackEngine):
     def get_record_between(self, resource, meter,
                            start_timestamp=None, end_timestamp=None):
         """
+        Get a Record by resource and meter between x, y
+
         :param resource: A resource in Dict form
         :param meter: Meter name
         :param start_timestamp: Start timestamp
