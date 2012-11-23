@@ -34,6 +34,9 @@ cfg.CONF.register_opts([
 
 
 class PeriodicService(rpc_service.Service):
+    """
+    A Service that does stuff periodicly
+    """
     def start(self):
         super(PeriodicService, self).start()
         admin_context = context.RequestContext('admin', 'admin', is_admin=True)
