@@ -14,12 +14,14 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 import os
+from stevedore.named import NamedExtensionManager
 
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log
-from bufunfa.service import PeriodicService
-from bufunfa.recorder import get_plugin
+from bufunfa.openstack.common.context import get_admin_context
+from bufunfa.openstack.common.rpc.service import Service
 from bufunfa.central import api as central_api
+from bufunfa.recorder.base import RecordEngine
 
 
 LOG = log.getLogger(__name__)
@@ -46,16 +48,59 @@ CLI_OPTIONS = [
 cfg.CONF.register_cli_opts(CLI_OPTIONS)
 
 
-class Service(PeriodicService):
+cfg.CONF.register_opts([
+    cfg.ListOpt('record-engines', default=[], help="What engines to enable")
+])
+
+
+class RecordService(Service):
     def __init__(self, *args, **kw):
         kw.update(
             host=cfg.CONF.host,
             topic=cfg.CONF.worker_topic)
 
-        super(Service, self).__init__(*args, **kw)
-        self.plugin = get_plugin(cfg.CONF)
+        super(RecordService, self).__init__(*args, **kw)
 
-    def periodic_tasks(self, context, raise_on_error=False):
-        records = self.plugin.process_records()
-        if records and len(records) >= 1:
-            central_api.process_records(context, records)
+        self.admin_context = get_admin_context()
+
+        self.engines = self._init_extensions()
+
+    def _init_extensions(self):
+        """ Loads and prepares all enabled extensions """
+        self.extensions_manager = NamedExtensionManager(
+            RecordEngine.__plugin_ns__, names=cfg.CONF.record_engines)
+
+        def _load_extension(ext):
+            handler_cls = ext.plugin
+            handler_cls.register_opts(cfg.CONF)
+            return handler_cls(record_service=self)
+
+        try:
+            return self.extensions_manager.map(_load_extension)
+        except RuntimeError:
+            # No handlers enabled. No problem.
+            return []
+
+    def start(self):
+        """
+        Start underlying engines
+        """
+        super(RecordService, self).start()
+        for engine in self.engines:
+            engine.start()
+
+    def stop(self):
+        """
+        Stop underlying engines
+        """
+        super(RecordService, self).stop()
+        for engine in self.engines:
+            engine.stop()
+
+    def publish_records(self, context, records):
+        """
+        Publish a record to the central service
+
+        :param record: The record
+        """
+        return central_api.process_records(context, records)

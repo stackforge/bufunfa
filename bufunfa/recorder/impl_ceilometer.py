@@ -32,6 +32,11 @@ LOG = log.getLogger(__name__)
 class RecordEngine(OpenstackEngine):
     __plugin_name__ = 'ceilometer'
 
+    def start(self):
+        self.periodic = self.start_periodic(
+            self.process_records,
+            cfg.CONF[self.name].poll_interval)
+
     def get_client(self):
         """
         Get a ceilometerclient
@@ -65,6 +70,9 @@ class RecordEngine(OpenstackEngine):
             central_api.process_records(self.admin_context, project_records)
 
             central_api.set_polled_at(self.admin_context, project_id, started)
+
+            self.record_service.publish_records(self.admin_context,
+                                                project_records)
 
     def get_poll_start(self, project_id):
         """
@@ -155,7 +163,7 @@ class RecordEngine(OpenstackEngine):
             end_timestamp=duration_info.get('end_timestamp'),
             duration=duration_info.get('duration')
         )
-        if self.config.record_audit_logging:
+        if cfg.CONF[self.name].record_audit_logging:
             LOG.debug("Record: %s", record)
         return record
 

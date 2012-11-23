@@ -18,6 +18,7 @@ from stevedore import driver
 
 from bufunfa.openstack.common import cfg
 from bufunfa.openstack.common import log as logging
+from bufunfa.openstack.common.loopingcall import LoopingCall
 from bufunfa import exceptions
 
 
@@ -32,8 +33,8 @@ class Plugin(object):
 
     def __init__(self):
         self.name = self.get_canonical_name()
-        self.config = cfg.CONF[self.name]
         LOG.debug("Loaded plugin %s", self.name)
+        self.tasks = []
 
     def is_enabled(self):
         """
@@ -129,3 +130,13 @@ class Plugin(object):
         """
         Stop this plugin from doing anything
         """
+        for task in self.tasks:
+            task.stop()
+
+    def start_periodic(self, func, interval, initial_delay=None,
+                       raise_on_error=False):
+        initial_delay = initial_delay or interval
+
+        task = LoopingCall(func)
+        task.start(interval=interval, initial_delay=initial_delay)
+        return task

@@ -25,16 +25,17 @@ class RecordEngine(Plugin):
     Base Record engine for getting Records from external systems
     """
     __plugin_type__ = 'recorder'
+    __plugin_ns__ = 'bufunfa.recorder'
 
-    def __init__(self):
+    def __init__(self, record_service):
         super(RecordEngine, self).__init__()
         self.admin_context = get_admin_context()
+        self.record_service = record_service
 
     @classmethod
     def get_opts(cls):
         return [
-            cfg.IntOpt('poll_age', default=86400,
-                       help='How far back to pull data from'),
+            cfg.IntOpt('poll_interval', default=60),
             cfg.BoolOpt('record_audit_logging', default=False,
                         help='Logs individual records pr get_records()')]
 
