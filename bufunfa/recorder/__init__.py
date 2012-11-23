@@ -13,17 +13,3 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-from stevedore import driver
-from bufunfa.openstack.common import log
-
-LOG = log.getLogger(__name__)
-
-DRIVER_NAMESPACE = "bufunfa.recorder"
-
-
-def get_plugin(conf):
-    name = "ceilometer"
-    LOG.debug("Looking for driver %s in %s", name, DRIVER_NAMESPACE)
-    mgr = driver.DriverManager(DRIVER_NAMESPACE, name, invoke_on_load=False)
-    mgr.driver.register_opts(conf)
-    return mgr.driver()
