@@ -1,7 +1,0 @@
-unittest2
-nose
-openstack.nose_plugin
-nosehtmloutput
-mox
-sphinx
-sphinxcontrib-httpdomain

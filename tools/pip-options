@@ -1,9 +1,0 @@
-# Optional Stuff that is used by default
-SQLAlchemy>=0.7.8,<=0.7.9
-kombu
-
-# Needed for Keystone Middleware
-python-keystoneclient>=0.2.0
-
-# Recorder - Ceilometer
-http://github.com/dreamhost/ceilometerclient/archive/master.zip#egg=ceilometerclient
